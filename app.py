@@ -8,6 +8,11 @@ from datetime import datetime
 from typing import Optional
 import sys
 import os
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
+os.environ['OPENAI_API_KEY'] = os.getenv('OPENAI_API_KEY', '')
 
 # Import custom modules
 from config import BRAND_COLORS, SERVICES, COVERAGE_AREAS, APP_TITLE, APP_SUBTITLE, WEBSITE, EMAIL, PHONE
