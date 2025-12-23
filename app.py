@@ -40,6 +40,10 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Initialize session state
+if "page" not in st.session_state:
+    st.session_state.page = "home"
+
 
 # ========================
 # Custom CSS Styling
@@ -843,7 +847,15 @@ with st.sidebar:
 
 def main():
     """Main application flow."""
-    # Route to correct page
+    # Apply styling first
+    apply_custom_styling()
+    
+    # Layout: sidebar + main content
+    with st.sidebar:
+        st.markdown(f"<div class='main-header'><h2>🧹 Champion Cleaners</h2><p>Your Trusted Laundry Partner</p></div>", unsafe_allow_html=True)
+        sidebar_navigation()
+    
+    # Main content
     if st.session_state.page == "home":
         page_home()
     elif st.session_state.page == "schedule":
