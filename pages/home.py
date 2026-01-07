@@ -17,7 +17,6 @@ def show():
     
     # Quick Access Section - Consistent Cards with Single CTA
     st.markdown("### 🚀 Quick Access")
-    col1, col2, col3, col4 = st.columns(4, gap="medium")
     
     # Define quick access items with icon, title, description, and navigation
     quick_actions = [
@@ -51,7 +50,10 @@ def show():
         }
     ]
     
+    # Cards row
+    col1, col2, col3, col4 = st.columns(4, gap="medium")
     cols = [col1, col2, col3, col4]
+    
     for idx, action in enumerate(quick_actions):
         with cols[idx]:
             st.markdown(f"""
@@ -63,7 +65,7 @@ def show():
                         border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
                         cursor: pointer;
-                        height: 220px;
+                        height: 200px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
@@ -74,7 +76,14 @@ def show():
                 <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; line-height: 1.4;">{action['description']}</p>
             </div>
             """, unsafe_allow_html=True)
-            
+    
+    # Buttons row - separate from cards
+    st.markdown("")  # Small spacing
+    btn1, btn2, btn3, btn4 = st.columns(4, gap="medium")
+    button_cols = [btn1, btn2, btn3, btn4]
+    
+    for idx, action in enumerate(quick_actions):
+        with button_cols[idx]:
             if st.button("Learn More →", key=action['key'], use_container_width=True):
                 st.session_state.page = action['page']
                 st.rerun()
