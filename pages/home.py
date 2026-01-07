@@ -79,7 +79,7 @@ def show():
     
     # Buttons row - separate from cards
     st.markdown("")  # Small spacing
-    btn1, btn2, btn3, btn4 = st.columns(4, gap="medium")
+    btn1, btn2, btn3, btn4 = st.columns(4, gap="small")
     button_cols = [btn1, btn2, btn3, btn4]
     
     for idx, action in enumerate(quick_actions):
