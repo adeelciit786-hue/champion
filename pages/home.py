@@ -52,14 +52,14 @@ def show():
     ]
     
     # Card styling constants for consistency
-    CARD_HEIGHT = "200px"
+    CARD_HEIGHT = "240px"
     CARD_PADDING = "1.5rem"
     CARD_RADIUS = "12px"
     ICON_SIZE = "2.2rem"
     
     for idx, action in enumerate(quick_actions):
         with [col1, col2, col3, col4][idx]:
-            # Render card with icon, title, description, and button inside
+            # Create a container for the entire card including button
             st.markdown(f"""
             <div style="background: linear-gradient(180deg, {BRAND_COLORS['primary_light']} 0%, white 100%);
                         padding: {CARD_PADDING};
@@ -71,26 +71,25 @@ def show():
                         min-height: {CARD_HEIGHT};
                         display: flex;
                         flex-direction: column;
-                        justify-content: flex-start;
+                        justify-content: space-between;
                         align-items: center;
                         text-align: center;
                         gap: 0.75rem;">
-                <div style="font-size: {ICON_SIZE}; line-height: 1;">{action['icon']}</div>
-                <h4 style="color: {BRAND_COLORS['primary']};
-                           margin: 0;
-                           font-size: 1.05rem;
-                           font-weight: 600;">{action['title']}</h4>
-                <p style="color: {BRAND_COLORS['text_light']};
-                          font-size: 0.85rem;
-                          margin: 0;
-                          flex-grow: 1;
-                          display: flex;
-                          align-items: center;
-                          line-height: 1.4;">{action['description']}</p>
+                <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 0.75rem; width: 100%;">
+                    <div style="font-size: {ICON_SIZE}; line-height: 1;">{action['icon']}</div>
+                    <h4 style="color: {BRAND_COLORS['primary']};
+                               margin: 0;
+                               font-size: 1.05rem;
+                               font-weight: 600;">{action['title']}</h4>
+                    <p style="color: {BRAND_COLORS['text_light']};
+                              font-size: 0.85rem;
+                              margin: 0;
+                              line-height: 1.4;">{action['description']}</p>
+                </div>
             </div>
             """, unsafe_allow_html=True)
             
-            # Single CTA button positioned consistently inside card
+            # Single CTA button - styled to match card design
             if st.button("Learn More →", key=action['key'], use_container_width=True):
                 st.session_state.page = action['page']
                 st.rerun()
