@@ -92,10 +92,10 @@ def show():
         ✓ Not applicable on previously booked orders
         
         **For more details, contact:**
-        - 📞 +971 4 2858581
-        - 📞 Toll-Free: 800 4556
-        - 📧 mail@champion-cleaners.com
-        """)
+        - <a href="tel:+97142858581" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">📞 +971 4 2858581</a>
+        - <a href="tel:8004556" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">📞 Toll-Free: 800 4556</a>
+        - <a href="mailto:mail@champion-cleaners.com" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">📧 mail@champion-cleaners.com</a>
+        """, unsafe_allow_html=True)
     
     # Subscribe to offers
     st.markdown("---")

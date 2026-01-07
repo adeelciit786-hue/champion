@@ -361,6 +361,10 @@ st.divider()
 st.markdown(f"""
 <div class="footer">
     <p>&copy; 2025 Champion Cleaners. Your Trusted Laundry Partner.</p>
-    <p>📞 +971 4 2858581 | 📧 mail@champion-cleaners.com | 🌐 champion-cleaners.com</p>
+    <p>
+        <a href="tel:+97142858581" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">📞 +971 4 2858581</a> | 
+        <a href="mailto:mail@champion-cleaners.com" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">📧 mail@champion-cleaners.com</a> | 
+        <a href="https://champion-cleaners.com" target="_blank" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">🌐 champion-cleaners.com</a>
+    </p>
 </div>
 """, unsafe_allow_html=True)

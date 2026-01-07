@@ -206,7 +206,7 @@ def show():
     for idx, (emoji, title, desc) in enumerate(services):
         with cols[idx % 3]:
             st.markdown(f"""
-            <div style="background: linear-gradient(135deg, white, {BRAND_COLORS['primary_light']});
+            <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                         padding: 1.5rem; border-radius: 12px;
                         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
                         border: 3px solid {BRAND_COLORS['primary']};
