@@ -124,6 +124,7 @@ st.markdown(f"""
         box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3) !important;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        white-space: nowrap;
     }}
     
     .stButton > button:hover {{
@@ -134,6 +135,17 @@ st.markdown(f"""
     
     .stButton > button:active {{
         transform: translateY(-1px) !important;
+    }}
+    
+    /* Special Schedule Button */
+    button[key*="nav_schedule"] {{
+        background: linear-gradient(135deg, var(--secondary-color), #D63945) !important;
+        box-shadow: 0 4px 15px rgba(193, 39, 45, 0.3) !important;
+    }}
+    
+    button[key*="nav_schedule"]:hover {{
+        background: linear-gradient(135deg, #A01F24, #E63946) !important;
+        box-shadow: 0 8px 25px rgba(193, 39, 45, 0.4) !important;
     }}
     
     /* Form Elements */
@@ -292,49 +304,57 @@ st.markdown(f"""
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
-# Create navbar with logo and inline buttons
-col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([1.2, 1, 1, 1, 1, 1, 1, 0.5])
-
-with col1:
-    st.markdown(f"""
-    <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0.5rem 1rem;">
-        <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: 1px;">
+# Create navbar with logo and inline buttons all in one row
+st.markdown(f"""
+<div style="background-color: white; padding: 1rem 2rem; border-bottom: 4px solid {BRAND_COLORS['primary']};
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 0 0 10px 10px;
+            margin: -1rem -1rem 2rem -1rem; display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 2rem; width: 100%;">
+        <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; white-space: nowrap;">
             <span style="color: {BRAND_COLORS['primary']};">CHAMPION</span>
             <br>
             <span style="color: {BRAND_COLORS['secondary']};">CLEANERS</span>
         </span>
+        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center;">
+            <!-- Navigation buttons will be placed here by columns -->
+        </div>
     </div>
-    """, unsafe_allow_html=True)
+</div>
+""", unsafe_allow_html=True)
 
-with col2:
-    if st.button("🏠 Home", key="nav_home", use_container_width=True):
-        st.session_state.page = 'home'
-        st.rerun()
+# Create inline navigation buttons
+nav_cols = st.columns([0.6, 0.8, 1, 0.8, 1.1, 0.8, 1, 1])
 
-with col3:
-    if st.button("📅 Schedule", key="nav_schedule", use_container_width=True):
-        st.session_state.page = 'schedule'
-        st.rerun()
+nav_buttons = [
+    ("🏠 HOME", "home", nav_cols[0]),
+    ("📅 SCHEDULE", "schedule", nav_cols[1]),
+    ("📍 TRACK", "track", nav_cols[2]),
+    ("🧹 SERVICES", "services", nav_cols[3]),
+    ("❓ FAQ", "faq", nav_cols[4]),
+    ("🎁 OFFERS", "offers", nav_cols[5])
+]
 
-with col4:
-    if st.button("📍 Track", key="nav_track", use_container_width=True):
-        st.session_state.page = 'track'
-        st.rerun()
-
-with col5:
-    if st.button("🧹 Services", key="nav_services", use_container_width=True):
-        st.session_state.page = 'services'
-        st.rerun()
-
-with col6:
-    if st.button("❓ FAQ", key="nav_faq", use_container_width=True):
-        st.session_state.page = 'faq'
-        st.rerun()
-
-with col7:
-    if st.button("🎁 Offers", key="nav_offers", use_container_width=True):
-        st.session_state.page = 'offers'
-        st.rerun()
+for button_text, page_name, col in nav_buttons:
+    with col:
+        if page_name == "schedule":
+            # Special styling for Schedule button
+            button_clicked = st.button(
+                button_text,
+                key=f"nav_{page_name}",
+                use_container_width=True,
+                help=f"Go to {page_name.capitalize()}"
+            )
+        else:
+            button_clicked = st.button(
+                button_text,
+                key=f"nav_{page_name}",
+                use_container_width=True,
+                help=f"Go to {page_name.capitalize()}"
+            )
+        
+        if button_clicked:
+            st.session_state.page = page_name
+            st.rerun()
 
 st.divider()
 
