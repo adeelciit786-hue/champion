@@ -63,16 +63,15 @@ def show():
                         border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
                         cursor: pointer;
-                        min-height: 200px;
+                        height: 220px;
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
-                        align-items: stretch;">
-                <div style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center;">{action['icon']}</div>
-                    <h4 style="color: {BRAND_COLORS['primary']}; margin: 0.3rem 0; text-align: center; font-size: 1rem; font-weight: 600;">{action['title']}</h4>
-                    <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; text-align: center; line-height: 1.4;">{action['description']}</p>
-                </div>
+                        justify-content: center;
+                        align-items: center;
+                        text-align: center;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">{action['icon']}</div>
+                <h4 style="color: {BRAND_COLORS['primary']}; margin: 0.3rem 0; font-size: 1rem; font-weight: 600; line-height: 1.3;">{action['title']}</h4>
+                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; line-height: 1.4;">{action['description']}</p>
             </div>
             """, unsafe_allow_html=True)
             
