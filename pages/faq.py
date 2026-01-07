@@ -12,12 +12,14 @@ def show():
     <h1 style="color: {BRAND_COLORS['primary']}; text-align: center; margin-bottom: 2rem;">Frequently Asked Questions</h1>
     """, unsafe_allow_html=True)
     
-    # Search Box
+    # Search Box with professional styling
     col1, col2 = st.columns([4, 1])
     with col1:
-        search_query = st.text_input("Search FAQ...", placeholder="e.g., 'turnaround time', 'bag cleaning'", key="faq_search")
+        st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.5rem;'>🔍 Search FAQ</p>", unsafe_allow_html=True)
+        search_query = st.text_input("", placeholder="e.g., 'turnaround time', 'bag cleaning'", label_visibility="collapsed", key="faq_search")
     with col2:
-        search_button = st.button("Search", use_container_width=True)
+        st.markdown(f"<p style='color: transparent; font-weight: 600; margin-bottom: 0.5rem;'>.</p>", unsafe_allow_html=True)
+        search_button = st.button("🔍 Search", use_container_width=True)
     
     st.markdown("---")
     
@@ -45,28 +47,38 @@ def show():
             """, unsafe_allow_html=True)
             
             st.markdown("---")
-            st.markdown(f"<h2 style='color: {BRAND_COLORS['primary']};'>Schedule Pickup Now</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='color: {BRAND_COLORS['primary']};'>📅 Schedule Pickup Now</h2>", unsafe_allow_html=True)
             
             with st.form("schedule_form_faq"):
                 col1, col2 = st.columns(2)
                 with col1:
-                    full_name = st.text_input("Full Name *")
+                    st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem;'>Full Name *</p>", unsafe_allow_html=True)
+                    full_name = st.text_input("", placeholder="Enter your full name", label_visibility="collapsed", key="faq_name")
                 with col2:
-                    phone = st.text_input("Phone Number *", placeholder="+971 50 123 4567")
+                    st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem;'>Phone Number *</p>", unsafe_allow_html=True)
+                    phone = st.text_input("", placeholder="+971 50 123 4567", label_visibility="collapsed", key="faq_phone")
                 
-                email = st.text_input("Email (Optional)")
-                address = st.text_area("Pickup Address *", placeholder="Enter your full address")
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Email (Optional)</p>", unsafe_allow_html=True)
+                email = st.text_input("", placeholder="your.email@example.com", label_visibility="collapsed", key="faq_email")
+                
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Pickup Address *</p>", unsafe_allow_html=True)
+                address = st.text_area("", placeholder="Enter your full address", label_visibility="collapsed", key="faq_address", height=80)
                 
                 col3, col4 = st.columns(2)
                 with col3:
+                    st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Pickup Date *</p>", unsafe_allow_html=True)
                     dates = get_future_dates(30)
-                    pickup_date = st.selectbox("Pickup Date *", options=dates)
+                    pickup_date = st.selectbox("", options=dates, label_visibility="collapsed", key="faq_date")
                 with col4:
+                    st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Pickup Time *</p>", unsafe_allow_html=True)
                     times = get_time_slots()
-                    pickup_time = st.selectbox("Pickup Time *", options=times)
+                    pickup_time = st.selectbox("", options=times, label_visibility="collapsed", key="faq_time")
                 
-                service_type = st.selectbox("Service Type *", options=SERVICES)
-                notes = st.text_area("Special Instructions (Optional)")
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Service Type *</p>", unsafe_allow_html=True)
+                service_type = st.selectbox("", options=SERVICES, label_visibility="collapsed", key="faq_service")
+                
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Special Instructions (Optional)</p>", unsafe_allow_html=True)
+                notes = st.text_area("", placeholder="Any special requests? Let us know...", label_visibility="collapsed", key="faq_notes", height=80)
                 
                 if st.form_submit_button("Confirm & Schedule Pickup"):
                     if not full_name or not phone or not address:
@@ -98,8 +110,11 @@ def show():
             st.markdown(f"<h2 style='color: {BRAND_COLORS['secondary']};'>Need More Help?</h2>", unsafe_allow_html=True)
             
             with st.form("contact_form"):
-                contact_phone = st.text_input("Phone Number *", placeholder="+971 50 123 4567")
-                issue = st.text_area("Describe Your Issue")
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem;'>Phone Number *</p>", unsafe_allow_html=True)
+                contact_phone = st.text_input("", placeholder="+971 50 123 4567", label_visibility="collapsed", key="contact_phone")
+                
+                st.markdown(f"<p style='color: #333; font-weight: 600; margin-bottom: 0.3rem; margin-top: 1rem;'>Describe Your Issue</p>", unsafe_allow_html=True)
+                issue = st.text_area("", placeholder="Tell us what you need help with...", label_visibility="collapsed", key="contact_issue", height=100)
                 
                 if st.form_submit_button("Submit Contact"):
                     if contact_phone and issue:

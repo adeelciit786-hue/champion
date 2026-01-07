@@ -14,45 +14,29 @@ def show():
     </div>
     """, unsafe_allow_html=True)
     
-    # Quick action cards
+    # Quick access cards - clickable with proper sizing
     st.markdown("### Quick Access")
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4 = st.columns(4, gap="medium")
     
     with col1:
-        st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; border-left: 4px solid {BRAND_COLORS['secondary']};">
-            <h2 style="font-size: 2rem; margin: 0;">📅</h2>
-            <h3 style="color: {BRAND_COLORS['primary']};">Schedule Pickup</h3>
-            <p style="color: #666;">Book a convenient pickup time for your laundry</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("📅 Schedule Pickup\n\nBook a convenient pickup time for your laundry", key="quick_schedule", use_container_width=True, help="Click to schedule pickup"):
+            st.session_state.page = 'schedule'
+            st.rerun()
     
     with col2:
-        st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; border-left: 4px solid {BRAND_COLORS['secondary']};">
-            <h2 style="font-size: 2rem; margin: 0;">📍</h2>
-            <h3 style="color: {BRAND_COLORS['primary']};">Track Order</h3>
-            <p style="color: #666;">Check the status of your order</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("📍 Track Order\n\nCheck the status of your order", key="quick_track", use_container_width=True, help="Click to track order"):
+            st.session_state.page = 'track'
+            st.rerun()
     
     with col3:
-        st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; border-left: 4px solid {BRAND_COLORS['secondary']};">
-            <h2 style="font-size: 2rem; margin: 0;">❓</h2>
-            <h3 style="color: {BRAND_COLORS['primary']};">FAQs</h3>
-            <p style="color: #666;">Find answers to common questions</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("❓ FAQs\n\nFind answers to common questions", key="quick_faq", use_container_width=True, help="Click to view FAQs"):
+            st.session_state.page = 'faq'
+            st.rerun()
     
     with col4:
-        st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; border-left: 4px solid {BRAND_COLORS['secondary']};">
-            <h2 style="font-size: 2rem; margin: 0;">🎉</h2>
-            <h3 style="color: {BRAND_COLORS['primary']};">Offers</h3>
-            <p style="color: #666;">Check out our latest deals</p>
-        </div>
-        """, unsafe_allow_html=True)
+        if st.button("🎁 Offers\n\nCheck out our latest deals", key="quick_offers", use_container_width=True, help="Click to view offers"):
+            st.session_state.page = 'offers'
+            st.rerun()
     
     # About section
     st.markdown("---")
@@ -76,29 +60,42 @@ def show():
     # Contact info
     st.markdown("---")
     st.markdown("### Contact Information")
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3, gap="medium")
     
     with col1:
         st.markdown(f"""
-        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem;">📞 Phone</h3>
-            <p><strong>+971 4 2858581</strong><br><strong>Toll-Free:</strong> 800 4556</p>
+        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">📞 Phone</h3>
+            <a href="tel:+97142858581" style="color: #333; text-decoration: none; font-size: 1rem; font-weight: 600;">
+                <p style="margin: 0.5rem 0;">+971 4 2858581</p>
+            </a>
+            <a href="tel:8004556" style="color: #333; text-decoration: none; font-size: 0.9rem;">
+                <p style="margin: 0.5rem 0;"><strong>Toll-Free:</strong> 800 4556</p>
+            </a>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown(f"""
-        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem;">📧 Email</h3>
-            <p>mail@champion-cleaners.com</p>
+        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">💬 WhatsApp</h3>
+            <a href="https://wa.me/971502130159" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 600;">
+                <p style="margin: 0.5rem 0; font-size: 1rem;">+971 50 213 0159</p>
+            </a>
+            <p style="margin: 0.5rem 0; font-size: 0.85rem; color: #666;">Chat with us instantly</p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown(f"""
-        <div style="background: white; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem;">🌐 Website</h3>
-            <p>champion-cleaners.com</p>
+        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
+            <a href="mailto:mail@champion-cleaners.com" style="color: #333; text-decoration: none;">
+                <p style="margin: 0.5rem 0; font-size: 0.95rem;">mail@champion-cleaners.com</p>
+            </a>
+            <a href="https://champion-cleaners.com" target="_blank" style="color: #333; text-decoration: none; font-size: 0.9rem;">
+                <p style="margin: 0.5rem 0;">champion-cleaners.com</p>
+            </a>
         </div>
         """, unsafe_allow_html=True)
     
@@ -106,7 +103,7 @@ def show():
     st.markdown("---")
     st.markdown("### Our Premium Services")
     
-    col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3, gap="medium")
     
     services = [
         ("📦", "Free Pick-up & Delivery", "Door-to-door convenience"),
@@ -120,10 +117,6 @@ def show():
     cols = [col1, col2, col3]
     for idx, (emoji, title, desc) in enumerate(services):
         with cols[idx % 3]:
-            st.markdown(f"""
-            <div style="background: white; padding: 1.5rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; cursor: pointer; transition: transform 0.3s;">
-                <div style="font-size: 2.5rem;">{emoji}</div>
-                <h4 style="color: {BRAND_COLORS['primary']}; margin: 0.5rem 0;">{title}</h4>
-                <p style="color: #666; font-size: 0.9rem;">{desc}</p>
-            </div>
-            """, unsafe_allow_html=True)
+            if st.button(f"{emoji} {title}\n\n{desc}", key=f"service_{idx}", use_container_width=True, help="Click to view details"):
+                st.session_state.page = 'services'
+                st.rerun()

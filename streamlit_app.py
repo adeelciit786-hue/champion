@@ -115,51 +115,49 @@ st.markdown(f"""
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
-# Create navbar columns
-col1, col2 = st.columns([0.25, 0.75])
+# Create navbar with logo and inline buttons
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([1.2, 1, 1, 1, 1, 1, 1, 0.5])
 
 with col1:
     st.markdown(f"""
-    <div style="display: flex; align-items: center; padding: 1rem 2rem; gap: 0.5rem;">
-        <span style="font-size: 1.8rem; font-weight: 700; letter-spacing: 1px;">
+    <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0.5rem 1rem;">
+        <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: 1px;">
             <span style="color: {BRAND_COLORS['primary']};">CHAMPION</span>
+            <br>
             <span style="color: {BRAND_COLORS['secondary']};">CLEANERS</span>
         </span>
     </div>
     """, unsafe_allow_html=True)
 
 with col2:
-    nav_cols = st.columns(6, gap="small")
-    
-    with nav_cols[0]:
-        if st.button("🏠 Home", key="nav_home", use_container_width=True):
-            st.session_state.page = 'home'
-            st.rerun()
-    
-    with nav_cols[1]:
-        if st.button("📅 Schedule", key="nav_schedule", use_container_width=True):
-            st.session_state.page = 'schedule'
-            st.rerun()
-    
-    with nav_cols[2]:
-        if st.button("📍 Track", key="nav_track", use_container_width=True):
-            st.session_state.page = 'track'
-            st.rerun()
-    
-    with nav_cols[3]:
-        if st.button("🧹 Services", key="nav_services", use_container_width=True):
-            st.session_state.page = 'services'
-            st.rerun()
-    
-    with nav_cols[4]:
-        if st.button("❓ FAQ", key="nav_faq", use_container_width=True):
-            st.session_state.page = 'faq'
-            st.rerun()
-    
-    with nav_cols[5]:
-        if st.button("🎁 Offers", key="nav_offers", use_container_width=True):
-            st.session_state.page = 'offers'
-            st.rerun()
+    if st.button("🏠 Home", key="nav_home", use_container_width=True):
+        st.session_state.page = 'home'
+        st.rerun()
+
+with col3:
+    if st.button("📅 Schedule", key="nav_schedule", use_container_width=True):
+        st.session_state.page = 'schedule'
+        st.rerun()
+
+with col4:
+    if st.button("📍 Track", key="nav_track", use_container_width=True):
+        st.session_state.page = 'track'
+        st.rerun()
+
+with col5:
+    if st.button("🧹 Services", key="nav_services", use_container_width=True):
+        st.session_state.page = 'services'
+        st.rerun()
+
+with col6:
+    if st.button("❓ FAQ", key="nav_faq", use_container_width=True):
+        st.session_state.page = 'faq'
+        st.rerun()
+
+with col7:
+    if st.button("🎁 Offers", key="nav_offers", use_container_width=True):
+        st.session_state.page = 'offers'
+        st.rerun()
 
 st.divider()
 
