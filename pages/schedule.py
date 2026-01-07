@@ -105,39 +105,27 @@ def show():
                     st.error(f"❌ Error scheduling pickup: {str(e)}")
     
     with col_info:
-        st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #E8F9F3, #F0F9FF); padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid {BRAND_COLORS['secondary']}; border-top: 2px solid {BRAND_COLORS['primary']}; height: 100%;">
-            <h3 style="color: {BRAND_COLORS['primary']}; margin-top: 0;">📋 Service Information</h3>
-            
-            <h4 style="color: {BRAND_COLORS['secondary']}; margin-top: 1.5rem;">⏱️ Turnaround Times</h4>
-            <p style="color: #555; margin: 0.5rem 0;">
-                <strong>Standard:</strong> 2 business days<br>
-                <strong>Express:</strong> Next working day (+50%)<br>
-                <strong>Wedding Gowns:</strong> 4-6 days<br>
-                <strong>Bags:</strong> 7-10 days<br>
-                <strong>Shoes:</strong> 5-7 days
-            </p>
-            
-            <h4 style="color: {BRAND_COLORS['secondary']}; margin-top: 1.5rem;">📍 Coverage Areas</h4>
-            <p style="color: #555; margin: 0.5rem 0;">
-                ✓ Dubai<br>
-                ✓ Abu Dhabi<br>
-                ✓ Sharjah<br>
-                ✓ Ajman
-            </p>
-            
-            <h4 style="color: {BRAND_COLORS['secondary']}; margin-top: 1.5rem;">💳 Payment Options</h4>
-            <p style="color: #555; margin: 0.5rem 0;">
-                Credit/Debit Card at doorstep<br>
-                Cash Payment Available
-            </p>
-            
-            <h4 style="color: {BRAND_COLORS['secondary']}; margin-top: 1.5rem;">✨ Why Choose Us?</h4>
-            <p style="color: #555; margin: 0.5rem 0;">
-                🚚 Free Pickup & Delivery<br>
-                👥 Expert Staff<br>
-                🏆 20+ Years Experience<br>
-                ✅ Quality Guaranteed
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
+        st.subheader("📋 Service Information")
+        
+        st.write("#### ⏱️ Turnaround Times")
+        st.write("🕐 **Standard:** 2 business days")
+        st.write("🚀 **Express:** Next working day (+50%)")
+        st.write("👰 **Wedding Gowns:** 4-6 days | 👜 **Bags:** 7-10 days | 👞 **Shoes:** 5-7 days")
+        
+        st.divider()
+        
+        st.write("#### 📍 Coverage Areas")
+        st.write("✓ Dubai  •  ✓ Abu Dhabi  •  ✓ Sharjah  •  ✓ Ajman")
+        
+        st.divider()
+        
+        st.write("#### 💳 Payment Options")
+        st.write("💳 Credit/Debit Card at doorstep  •  💵 Cash Payment Available")
+        
+        st.divider()
+        
+        st.write("#### ✨ Why Choose Us?")
+        st.write("🚚 Free Pickup & Delivery")
+        st.write("👥 Expert Staff")
+        st.write("🏆 20+ Years Experience")
+        st.write("✅ Quality Guaranteed")
