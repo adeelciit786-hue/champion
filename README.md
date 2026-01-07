@@ -1,13 +1,35 @@
-# Champion Cleaners Assistant 🧹
+# Champion Cleaners Web Application 🧹
 
-A professional Streamlit web-based chatbot application designed for Champion Cleaners, a leading laundry & dry cleaning service in the UAE. This intelligent assistant handles customer interactions for scheduling pickups, tracking orders, retrieving FAQs, and managing promotional offers.
+A professional Flask-based web application for Champion Cleaners laundry & dry cleaning service in the UAE.
+
+## Quick Start
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/adeelciit786-hue/champion.git
+cd champion
+
+# 2. Create virtual environment
+python -m venv venv
+.\venv\Scripts\Activate.ps1  # Windows PowerShell
+# or
+source venv/bin/activate     # Mac/Linux
+
+# 3. Install dependencies
+pip install -r requirements.txt
+
+# 4. Run the application
+python app.py
+
+# 5. Open browser to http://localhost:5000
+```
 
 ## Features
 
 ### 1. 📅 Schedule Pickup & Delivery
-- **Customer Information Form**: Collect full name, phone number, optional email, and pickup address
-- **Date & Time Selection**: Choose from available pickup dates (1-30 days in future) and time slots
-- **Service Selection**: Browse all Champion Cleaners services including:
+- Customer information form with validation
+- Date and time selection
+- Service type selection
   - Free Pick-up & Delivery
   - Carpet & Upholstery Cleaning
   - Bag & Shoe Spa

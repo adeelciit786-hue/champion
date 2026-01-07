@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Order - Champion Cleaners</title>
+    <style>
+        /* stylelint-disable */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .navbar {
+            background-color: white;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 4px solid {{ colors.primary }};
+        }
+        
+        .navbar h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .navbar-brand-champion {
+            color: {{ colors.primary }};
+        }
+        
+        .navbar-brand-cleaners {
+            color: {{ colors.secondary }};
+        }
+        
+        .navbar nav a {
+            color: {{ colors.primary }};
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+        }
+        
+        .navbar nav a:hover {
+            color: {{ colors.secondary }};
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: {{ colors.primary }};
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+        
+        .search-section {
+            background: linear-gradient(135deg, #FFFFFF, #F0F9FF);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 6px solid {{ colors.primary }};
+            border-top: 2px solid {{ colors.secondary }};
+        }
+        
+        .search-type {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .search-type label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: {{ colors.primary }};
+            font-weight: 500;
+        }
+        
+        input[type="radio"] {
+            cursor: pointer;
+            accent-color: {{ colors.primary }};
+            width: auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: {{ colors.primary }};
+            font-weight: 600;
+        }
+        
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #E8E8E8;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: {{ colors.primary }};
+            box-shadow: 0 0 8px {{ colors.primary }}40;
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, {{ colors.primary }}, #28C258);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px {{ colors.primary }}40;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px {{ colors.primary }}50;
+        }
+        
+        .alert {
+            padding: 1.2rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border-left: 4px solid;
+        }
+        
+        .alert-success {
+            background-color: #E8F9F3;
+            color: #00A651;
+            border-left-color: #00A651;
+        }
+        
+        .alert-error {
+            background-color: #FCE8E8;
+            color: #C1272D;
+            border-left-color: #C1272D;
+        }
+        
+        .order-details {
+            background: linear-gradient(135deg, #FFFFFF, #F0F9FF);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            display: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border: 2px solid {{ colors.primary }};
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .order-details.show {
+            display: block;
+        }
+        
+        .order-details h2 {
+            color: {{ colors.primary }};
+            margin-bottom: 1rem;
+        }
+        
+        .order-details p {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #E8E8E8;
+        }
+        
+        .contact-message {
+            background: linear-gradient(135deg, #FFF5F5, #FFFAFB);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 1rem;
+            display: none;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid {{ colors.secondary }};
+        }
+        
+        .contact-message.show {
+            display: block;
+        }
+        
+        .whatsapp-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #25D366, #20C358);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+        
+        .whatsapp-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, {{ colors.primary }}, {{ colors.secondary }});
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <h1>
+                <span class="navbar-brand-champion">CHAMPION</span>
+                <span class="navbar-brand-cleaners">CLEANERS</span>
+            </h1>
+        </a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/schedule">Schedule</a>
+            <a href="/track">Track</a>
+            <a href="/services">Services</a>
+            <a href="/faq">FAQ</a>
+            <a href="/offers">Offers</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <h1>Track Your Order</h1>
+        
+        <div id="alertContainer"></div>
+        
+        <div class="search-section">
+            <div class="search-type">
+                <label>
+                    <input type="radio" name="searchType" value="order_id" checked>
+                    Search by Order ID
+                </label>
+                <label>
+                    <input type="radio" name="searchType" value="phone">
+                    Search by Phone
+                </label>
+            </div>
+            
+            <div class="form-group">
+                <label for="searchInput">Enter Your Order ID or Phone Number</label>
+                <input type="text" id="searchInput" placeholder="e.g., CC20250101ABCD1234" inputmode="numeric">
+            </div>
+            
+            <button class="btn" onclick="searchOrder()">Search Order</button>
+        </div>
+        
+        <div id="orderDetails" class="order-details">
+            <h2>Order Found!</h2>
+            <p><strong>Order ID:</strong> <span id="oId"></span></p>
+            <p><strong>Name:</strong> <span id="oName"></span></p>
+            <p><strong>Service:</strong> <span id="oService"></span></p>
+            <p><strong>Date:</strong> <span id="oDate"></span></p>
+            <p><strong>Time:</strong> <span id="oTime"></span></p>
+            <p><strong>Status:</strong> <span id="oStatus" style="color: {{ colors.success }}; font-weight: bold;"></span></p>
+        </div>
+        
+        <div id="contactMessage" class="contact-message">
+            <h2 id="contactTitle" style="color: {{ colors.secondary }}; margin-bottom: 1rem;">Get Instant Support</h2>
+            <p id="contactText">Our team will get in touch with you shortly. Alternatively, you can reach us directly via WhatsApp:</p>
+            <a href="https://wa.me/971507738025" target="_blank" class="whatsapp-btn">💬 Chat on WhatsApp</a>
+            <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">+971 4 2858581</p>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2025 Champion Cleaners. Your Trusted Laundry Partner.</p>
+    </div>
+    
+    <script>
+        // Update placeholder and validation based on search type
+        document.querySelectorAll('input[name="searchType"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                const input = document.getElementById('searchInput');
+                if (e.target.value === 'order_id') {
+                    input.placeholder = 'e.g., CC20250101ABCD1234';
+                    input.value = '';
+                } else {
+                    input.placeholder = '+971 50 123 4567';
+                    input.value = '';
+                }
+            });
+        });
+        
+        // Validate input based on search type
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const searchType = document.querySelector('input[name="searchType"]:checked').value;
+            let value = e.target.value;
+            
+            if (searchType === 'phone') {
+                // For phone: allow only numbers, plus sign, spaces, and hyphens
+                value = value.replace(/[^0-9+\s-]/g, '');
+                e.target.value = value;
+            } else {
+                // For order ID: allow only numbers
+                value = value.replace(/[^0-9]/g, '');
+                e.target.value = value;
+            }
+        });
+        
+        // Prevent invalid paste
+        document.getElementById('searchInput').addEventListener('paste', (e) => {
+            const searchType = document.querySelector('input[name="searchType"]:checked').value;
+            const pastedText = (e.clipboardData || window.clipboardData).getData('text');
+            
+            let isValid = false;
+            if (searchType === 'phone') {
+                isValid = /^[0-9+\s-]+$/.test(pastedText);
+            } else {
+                isValid = /^[0-9]+$/.test(pastedText);
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                showAlert('Invalid format for this search type', 'error');
+            }
+        });
+        
+        function searchOrder() {
+            const searchType = document.querySelector('input[name="searchType"]:checked').value;
+            const searchValue = document.getElementById('searchInput').value.trim();
+            
+            if (!searchValue) {
+                showAlert('Please enter a search value', 'error');
+                return;
+            }
+            
+            // Validate format based on search type
+            if (searchType === 'phone') {
+                if (!/^[0-9+\s-]{7,}$/.test(searchValue)) {
+                    showAlert('Please enter a valid phone number', 'error');
+                    return;
+                }
+            } else {
+                if (!/^[0-9]+$/.test(searchValue)) {
+                    showAlert('Please enter a valid Order ID (numbers only)', 'error');
+                    return;
+                }
+            }
+            
+            fetch('/api/track-order', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({search_type: searchType, search_value: searchValue})
+            })
+            .then(r => r.json())
+            .then(data => {
+                if (data.success) {
+                    const order = data.order;
+                    document.getElementById('oId').textContent = order.order_id;
+                    document.getElementById('oName').textContent = order.name;
+                    document.getElementById('oService').textContent = order.service;
+                    document.getElementById('oDate').textContent = order.date;
+                    document.getElementById('oTime').textContent = order.time;
+                    document.getElementById('oStatus').textContent = order.status;
+                    document.getElementById('orderDetails').classList.add('show');
+                    document.getElementById('contactMessage').classList.remove('show');
+                    showAlert('Order found! Our team will contact you shortly.', 'success');
+                } else {
+                    document.getElementById('orderDetails').classList.remove('show');
+                    document.getElementById('contactMessage').classList.add('show');
+                    
+                    // Show different message based on search type
+                    if (searchType === 'phone') {
+                        document.getElementById('contactTitle').textContent = '📞 We Have Your Details';
+                        document.getElementById('contactText').textContent = 'Thank you for sharing your phone number. Our team will get in touch with you shortly. You can also reach us directly via WhatsApp:';
+                        showAlert('Our team will assist you shortly.', 'error');
+                    } else {
+                        document.getElementById('contactTitle').textContent = '📞 Order Not Found';
+                        document.getElementById('contactText').textContent = 'We couldn\'t find your order with this ID. Our team will help you. Please reach us via WhatsApp or we\'ll contact you shortly:';
+                        showAlert('Order not found. Our team will assist you shortly.', 'error');
+                    }
+                }
+            })
+            .catch(e => showAlert('Error: ' + e.message, 'error'));
+        }
+        
+        function showAlert(msg, type) {
+            const div = document.createElement('div');
+            div.className = `alert alert-${type}`;
+            div.textContent = msg;
+            document.getElementById('alertContainer').innerHTML = '';
+            document.getElementById('alertContainer').appendChild(div);
+        }
+    </script>
+</body>
+</html>

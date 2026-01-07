@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Champion Cleaners</title>
+    <style>
+        /* stylelint-disable */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        
+        .navbar {
+            background-color: white;
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-bottom: 4px solid {{ colors.primary }};
+        }
+        
+        .navbar h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .navbar-brand-champion {
+            color: {{ colors.primary }};
+        }
+        
+        .navbar-brand-cleaners {
+            color: {{ colors.secondary }};
+        }
+        
+        .navbar nav a {
+            color: {{ colors.primary }};
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: opacity 0.3s;
+            font-weight: 500;
+        }
+        
+        .navbar nav a:hover {
+            opacity: 0.8;
+            color: {{ colors.secondary }};
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, {{ colors.primary }}, {{ colors.secondary }}, #FFFFFF);
+            color: white;
+            padding: 3.5rem 2rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+        
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.95;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-top: 5px solid {{ colors.primary }};
+            cursor: pointer;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.15);
+        }
+        
+        .service-card:nth-child(even) {
+            border-top-color: {{ colors.secondary }};
+        }
+        
+        .service-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, {{ colors.primary }}40, {{ colors.secondary }}40);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: {{ colors.primary }};
+            font-size: 3rem;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .service-image.placeholder {
+            color: {{ colors.primary }};
+            font-size: 3rem;
+        }
+        
+        .service-content {
+            padding: 1.5rem;
+        }
+        
+        .service-content h2 {
+            color: {{ colors.primary }};
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .service-content p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .service-features {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        
+        .service-features li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            color: #555;
+            position: relative;
+        }
+        
+        .service-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: {{ colors.primary }};
+            font-weight: bold;
+        }
+        
+        .view-details-btn {
+            background: linear-gradient(135deg, {{ colors.primary }}, #28C258);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 15px {{ colors.primary }}40;
+        }
+        
+        .view-details-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px {{ colors.primary }}50;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        
+        .modal.show {
+            display: block;
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, #FFFFFF, #F0F9FF);
+            margin: 2rem auto;
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 800px;
+            box-shadow: 0 8px 35px rgba(0,0,0,0.2);
+            position: relative;
+            top: 50px;
+            border: 2px solid {{ colors.primary }};
+        }
+        
+        .close-btn {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: {{ colors.secondary }};
+            background: none;
+            border: none;
+            transition: transform 0.3s;
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .close-btn:hover {
+            transform: scale(1.2);
+        }
+        
+        .modal-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal h2 {
+            color: {{ colors.primary }};
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .modal p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .turnaround {
+            background: linear-gradient(135deg, #E8F9F3, #E8F9F3);
+            padding: 1rem;
+            border-left: 6px solid {{ colors.primary }};
+            margin: 1rem 0;
+            border-radius: 8px;
+        }
+        
+        .turnaround strong {
+            color: {{ colors.primary }};
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .intro-section {
+            background: linear-gradient(135deg, #F0F9FF, #FFFFFF);
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-left: 6px solid {{ colors.primary }};
+            border-top: 2px solid {{ colors.secondary }};
+        }
+        
+        .intro-section h2 {
+            color: {{ colors.primary }};
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+        
+        .intro-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        
+        .footer {
+            background: linear-gradient(135deg, {{ colors.primary }}, {{ colors.secondary }});
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+        }
+        
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .navbar nav a {
+                margin-left: 0;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/" style="text-decoration: none; color: inherit;">
+            <h1>
+                <span class="navbar-brand-champion">CHAMPION</span>
+                <span class="navbar-brand-cleaners">CLEANERS</span>
+            </h1>
+        </a>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/schedule">Schedule</a>
+            <a href="/track">Track</a>
+            <a href="/services">Services</a>
+            <a href="/faq">FAQ</a>
+            <a href="/offers">Offers</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Our Premium Services</h1>
+            <p>World-class cleaning solutions for all your needs</p>
+        </div>
+        
+        <div class="intro-section">
+            <h2>State-of-the-Art Cleaning Excellence</h2>
+            <p>Champion Cleaners uses fully automatic state-of-the-art washing and dry cleaning systems with automatic dosing units. We are known for our use of mild chemicals, the best spotting agents in the industry, and our long-term partnership with Johnson Diversey, the globally number one liquid detergents brand.</p>
+        </div>
+        
+        <div class="services-grid">
+            <!-- Free Pick-up & Delivery -->
+            <div class="service-card" onclick="openModal('pickup')">
+                <div class="service-image placeholder" id="img-pickup">
+                    📦
+                    <!-- To add image: Replace above with: <img src="/static/images/pickup.jpg" alt="Free Pick-up & Delivery"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Free Pick-up & Delivery</h2>
+                    <p>Door-to-door convenience for your garments</p>
+                    <ul class="service-features">
+                        <li>Free service to all areas</li>
+                        <li>Pay at doorstep option</li>
+                        <li>Convenient scheduling</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Carpet & Upholstery -->
+            <div class="service-card" onclick="openModal('carpet')">
+                <div class="service-image placeholder" id="img-carpet">
+                    🛋️
+                    <!-- To add image: Replace above with: <img src="/static/images/carpet.jpg" alt="Carpet & Upholstery"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Carpet & Upholstery</h2>
+                    <p>Professional cleaning with advanced technology</p>
+                    <ul class="service-features">
+                        <li>Aqua Jet Injection Machines</li>
+                        <li>Quick drying process</li>
+                        <li>Leather restoration</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Bag & Shoe Spa -->
+            <div class="service-card" onclick="openModal('bag')">
+                <div class="service-image placeholder" id="img-bag">
+                    👜
+                    <!-- To add image: Replace above with: <img src="/static/images/bag-shoe-spa.jpg" alt="Bag & Shoe Spa"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Bag & Shoe Spa</h2>
+                    <p>Luxury leather goods restoration</p>
+                    <ul class="service-features">
+                        <li>Oil extraction & stain removal</li>
+                        <li>Shine restoration</li>
+                        <li>Expert craftsmanship</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Wedding Gown -->
+            <div class="service-card" onclick="openModal('wedding')">
+                <div class="service-image placeholder" id="img-wedding">
+                    👗
+                    <!-- To add image: Replace above with: <img src="/static/images/wedding-gown.jpg" alt="Wedding Gown Restoration"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Wedding Gown Restoration</h2>
+                    <p>Certified specialist in gown preservation</p>
+                    <ul class="service-features">
+                        <li>Museum & Box preservation</li>
+                        <li>Acid-free environment</li>
+                        <li>Award-winning care</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Permanent Creasing -->
+            <div class="service-card" onclick="openModal('crease')">
+                <div class="service-image placeholder" id="img-crease">
+                    👔
+                    <!-- To add image: Replace above with: <img src="/static/images/supercrease.jpg" alt="Super Crease"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Super Crease (Permanent)</h2>
+                    <p>Long-lasting crisp creases</p>
+                    <ul class="service-features">
+                        <li>Specially formulated resin</li>
+                        <li>50+ wash guarantee</li>
+                        <li>Confidence boost</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Soft Toy Cleaning -->
+            <div class="service-card" onclick="openModal('toy')">
+                <div class="service-image placeholder" id="img-toy">
+                    🧸
+                    <!-- To add image: Replace above with: <img src="/static/images/soft-toy.jpg" alt="Soft Toy Cleaning"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Soft Toy Cleaning</h2>
+                    <p>Safe cleaning for beloved toys</p>
+                    <ul class="service-features">
+                        <li>Professional handling</li>
+                        <li>I-Genius sanitization</li>
+                        <li>Family safe process</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Alteration Clinique -->
+            <div class="service-card" onclick="openModal('alter')">
+                <div class="service-image placeholder" id="img-alter">
+                    ✂️
+                    <!-- To add image: Replace above with: <img src="/static/images/alteration.jpg" alt="Alteration Clinique"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Alteration Clinique</h2>
+                    <p>Professional garment alterations</p>
+                    <ul class="service-features">
+                        <li>Length adjustment & hemming</li>
+                        <li>Zipper & button repair</li>
+                        <li>Expert tailoring</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Hygienizing & Sanitizing -->
+            <div class="service-card" onclick="openModal('hygiene')">
+                <div class="service-image placeholder" id="img-hygiene">
+                    🛡️
+                    <!-- To add image: Replace above with: <img src="/static/images/hygienizing.jpg" alt="Hygienizing & Sanitizing"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Hygienizing & Sanitizing</h2>
+                    <p>Advanced sanitization with i-Genius</p>
+                    <ul class="service-features">
+                        <li>99.9% bacteria elimination</li>
+                        <li>Chemical-free ozone</li>
+                        <li>Multi-item compatible</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+            
+            <!-- Wash and Fold -->
+            <div class="service-card" onclick="openModal('washfold')">
+                <div class="service-image placeholder" id="img-washfold">
+                    🧺
+                    <!-- To add image: Replace above with: <img src="/static/images/wash-fold.jpg" alt="Wash & Fold Service"> -->
+                </div>
+                <div class="service-content">
+                    <h2>Wash & Fold Service</h2>
+                    <p>Economical wash and fold solution</p>
+                    <ul class="service-features">
+                        <li>Only AED 75 (VAT exclusive)</li>
+                        <li>48-hour turnaround</li>
+                        <li>Convenient collection bags</li>
+                    </ul>
+                    <button class="view-details-btn">View Details</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modals -->
+    
+    <!-- Free Pick-up Modal -->
+    <div id="pickupModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('pickup')">&times;</button>
+            <h2>Free Pick-up & Delivery</h2>
+            <p><strong>Door To Door Convenience</strong></p>
+            <p>The quality of service available through our outlets is second to none. Making you look good is our business. At Champion Cleaners we are committed to treating your garments with the utmost care and quality. We use state-of-the-art equipment and employ exceptional people with a wealth of industry experience.</p>
+            <p>All dry cleaning is done in-house according to the manufacturer's recommendations. Duvets, bed sheets, tablecloths, sleeping bags and other large household items should always be cleaned professionally.</p>
+            <p>Champion Cleaners offers free pick-up and delivery service with pay port options for customers to pay via credit card at their doorstep.</p>
+            <button class="view-details-btn" onclick="location.href='/schedule'">Schedule Now</button>
+        </div>
+    </div>
+    
+    <!-- Carpet & Upholstery Modal -->
+    <div id="carpetModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('carpet')">&times;</button>
+            <h2>Carpet & Upholstery Cleaning</h2>
+            <p>We use state of the art portable Aqua Jet Injection Machine that allows surface cleaning application as conveniently as possible and results in quick drying of sofas and carpets without mess.</p>
+            <h3 style="color: {{ colors.primary }}; margin-top: 1.5rem;">Services Include:</h3>
+            <ul class="service-features">
+                <li>Carpet deep cleaning</li>
+                <li>Sofa & upholstery cleaning</li>
+                <li>Leather sofa restoration</li>
+                <li>Quick dry process</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Bag & Shoe Spa Modal -->
+    <div id="bagModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('bag')">&times;</button>
+            <h2>Bag & Shoe SPA</h2>
+            <p><strong>Professional leather care, Handbag & Shoe Cleaning Services</strong></p>
+            <p>We specialize in cleaning, repairing and restoring most of the delicate brands of leather. Our bag and Shoe Spa takes care of all your luxury leather belongings.</p>
+            <p>Our proprietary leather care products are from the United States and created from natural and organic ingredients that are safe for most delicate leathers, including unfinished leathers and exotics.</p>
+            <div class="turnaround">
+                <strong>Processing Time:</strong> 7-10 days for shoes | 15-21 days for bags
+            </div>
+            <h3 style="color: {{ colors.primary }};">Services Include:</h3>
+            <ul class="service-features">
+                <li>Handbag cleaning & restoration</li>
+                <li>Stain removal & dye extraction</li>
+                <li>Shine restoration</li>
+                <li>Shoe cleaning & disinfecting</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Wedding Gown Modal -->
+    <div id="weddingModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('wedding')">&times;</button>
+            <h2>Certified Wedding Gown Specialist</h2>
+            <p><strong>Heirloom gown preservation and vintage gown restoration is our speciality</strong></p>
+            <p>Whether it's for sentimental value or to pass it down through generations, preserving your wedding dress is the best way to retain its color, fabric and shape.</p>
+            <p>With the magic help of Champion Cleaners, a member of the Association of Wedding Gown Specialists in USA, it's now easier than ever to help maintain your wedding dress for years to come.</p>
+            <div class="turnaround">
+                <strong>Processing Time:</strong> 7-10 days for preservation
+            </div>
+            <h3 style="color: {{ colors.primary }};">Preservation Methods:</h3>
+            <ul class="service-features">
+                <li>Box Preservation: Acid-free environment, easily stored</li>
+                <li>Museum Method: 100% muslin cotton with acid-free paper</li>
+                <li>Best air circulation & dust protection</li>
+                <li>Gift-like packaging</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Permanent Creasing Modal -->
+    <div id="creaseModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('crease')">&times;</button>
+            <h2>Super Crease (Permanent Creasing)</h2>
+            <p>SuperCrease is a permanent creasing solution. Once we dry clean your garment and steam in the creases, we apply a specially formulated resin to creases from the inside of the trouser to make the crease permanent.</p>
+            <p>What this does for the garment is make the crease sharp, so when you wear it, it stands out confidently like its owner.</p>
+            <div class="turnaround">
+                <strong>Guarantee:</strong> Permanent for life of garment | 50+ wash guarantee
+            </div>
+            <h3 style="color: {{ colors.primary }};">Benefits of SuperCrease:</h3>
+            <ul class="service-features">
+                <li>Increase your confidence level</li>
+                <li>Make better first impression</li>
+                <li>One time application</li>
+                <li>Safe with European certifications</li>
+                <li>Odorless & proven effective</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Soft Toy Modal -->
+    <div id="toyModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('toy')">&times;</button>
+            <h2>Soft Toy Cleaning</h2>
+            <p><strong>Turn your toys back to their lovely form again</strong></p>
+            <p>With Champion Cleaners Soft Toy Service, your toys will be cleaned and preserved professionally using our safe and eco-friendly methods.</p>
+            <p>Our I-Genius Technology uses chemical-free ozone sanitization to ensure your children's toys are safe and clean.</p>
+            <ul class="service-features">
+                <li>Professional cleaning & preservation</li>
+                <li>I-Genius ozone sanitization</li>
+                <li>Chemical-free process</li>
+                <li>Safe for children</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Alteration Modal -->
+    <div id="alterModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('alter')">&times;</button>
+            <h2>Alteration Clinique</h2>
+            <p>Professional alteration services for all your garments, handled by expert tailors.</p>
+            <h3 style="color: {{ colors.primary }};">Services Include:</h3>
+            <ul class="service-features">
+                <li>Adjustment of length</li>
+                <li>Hemming</li>
+                <li>Zipper replacement</li>
+                <li>Button repair & replacement</li>
+                <li>Hole repair</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Hygienizing Modal -->
+    <div id="hygieneModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('hygiene')">&times;</button>
+            <h2>Hygienizing & Sanitizing Service</h2>
+            <p>Champion Cleaners introduces the i-Genius, a revolutionary technology with powerful hygienizing, sanitizing and bacteria-destroying action, engineered to make our everyday life safe, healthy and protected from unpleasant pathogenic agents.</p>
+            <div class="turnaround">
+                <strong>Effectiveness:</strong> Eliminates 99.9% of bacteria and viruses
+            </div>
+            <h3 style="color: {{ colors.primary }};">Compatible Items:</h3>
+            <ul class="service-features">
+                <li>Helmets & protective gear</li>
+                <li>Boots & gloves</li>
+                <li>Children's strollers & toys</li>
+                <li>Uniforms</li>
+                <li>Backpacks</li>
+                <li>All soft accessories</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Wash & Fold Modal -->
+    <div id="washfoldModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('washfold')">&times;</button>
+            <h2>Wash and Fold Service</h2>
+            <p><strong>Economical and convenient wash and fold solution</strong></p>
+            <p>For only AED 75 (VAT exclusive), fill up Champion Cleaners' special "Wash and Fold" collection bag and have your items washed, folded and returned to you in 48 hours.</p>
+            <div class="turnaround">
+                <strong>Price:</strong> AED 75 VAT exclusive | <strong>Turnaround:</strong> 48 hours
+            </div>
+            <h3 style="color: {{ colors.primary }};">Service Details:</h3>
+            <ul class="service-features">
+                <li>Suitable for 40°C wash & dry</li>
+                <li>Does not include ironing</li>
+                <li>Special secure collection bags</li>
+                <li>Exclusive app discounts available</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2025 Champion Cleaners. Your Trusted Laundry Partner.</p>
+    </div>
+    
+    <script>
+        function openModal(serviceId) {
+            const modalId = serviceId + 'Modal';
+            document.getElementById(modalId).classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal(serviceId) {
+            const modalId = serviceId + 'Modal';
+            document.getElementById(modalId).classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+        
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('show');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Close modal on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal.show').forEach(modal => {
+                    modal.classList.remove('show');
+                });
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>
