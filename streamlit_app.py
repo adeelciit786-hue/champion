@@ -115,24 +115,34 @@ st.markdown(f"""
         background: {BRAND_COLORS['primary']} !important;
         color: white !important;
         border: none !important;
-        border-radius: 8px !important;
-        padding: 0.7rem 1.2rem !important;
+        border-radius: 12px !important;
+        padding: 0.7rem 1rem !important;
         font-weight: 600 !important;
-        font-size: 0.9rem !important;
+        font-size: 0.85rem !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 2px 8px rgba(0, 166, 81, 0.25) !important;
+        box-shadow: 0 2px 8px rgba(0, 166, 81, 0.2) !important;
         white-space: nowrap;
     }}
     
     .stButton > button:hover {{
         transform: translateY(-2px) !important;
-        box-shadow: 0 4px 15px rgba(0, 166, 81, 0.35) !important;
+        box-shadow: 0 4px 12px rgba(0, 166, 81, 0.3) !important;
         background: #008C3F !important;
     }}
     
     .stButton > button:active {{
         transform: translateY(0px) !important;
+    }}
+    
+    /* Navbar Styling */
+    [data-testid="stHorizontalBlock"] > div:first-child {{
+        background-color: white !important;
+        padding: 1rem !important;
+        border-bottom: 4px solid {BRAND_COLORS['primary']} !important;
+        border-radius: 0 0 15px 15px !important;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08) !important;
+        margin-bottom: 2rem !important;
     }}
     
     /* Form Elements */
@@ -291,22 +301,21 @@ st.markdown(f"""
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
-# Create navbar with green background
-st.markdown(f"""
-<div style="background-color: {BRAND_COLORS['primary']}; padding: 1.2rem 2rem; border-radius: 0 0 15px 15px;
-            margin: -1rem -1rem 2rem -1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: flex; 
-            align-items: center; justify-content: space-between; gap: 1rem;">
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-        <span style="font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; color: white; white-space: nowrap;">
-            <span style="color: white;">CHAMPION</span><br><span style="color: white;">CLEANERS</span>
+# Create navbar with white background, logo on left, buttons on right
+col_navbar = st.columns([0.8, 4.5, 1, 1, 1, 1, 1, 1], gap="small")
+
+# Logo column (left side)
+with col_navbar[0]:
+    st.markdown(f"""
+    <div style="display: flex; align-items: center; justify-content: flex-start; padding: 0.8rem 1rem; height: 100%;">
+        <span style="font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; line-height: 1.2;">
+            <span style="color: {BRAND_COLORS['primary']};">CHAMPION</span><br>
+            <span style="color: {BRAND_COLORS['secondary']};">CLEANERS</span>
         </span>
     </div>
-</div>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-# Create inline navigation buttons in green bar
-nav_cols = st.columns([0.8, 0.8, 0.8, 0.9, 0.8, 0.9, 1.5], gap="small")
-
+# Navigation buttons (right side)
 nav_items = [
     ("🏠 HOME", "home"),
     ("📅 SCHEDULE", "schedule"),
@@ -317,7 +326,7 @@ nav_items = [
 ]
 
 for idx, (button_text, page_name) in enumerate(nav_items):
-    with nav_cols[idx]:
+    with col_navbar[idx + 2]:
         button_clicked = st.button(
             button_text,
             key=f"nav_{page_name}",
