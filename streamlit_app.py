@@ -112,40 +112,27 @@ st.markdown(f"""
     
     /* Buttons */
     .stButton > button {{
-        background: linear-gradient(135deg, var(--primary-color), #28C258) !important;
+        background: {BRAND_COLORS['primary']} !important;
         color: white !important;
         border: none !important;
         border-radius: 8px !important;
-        padding: 0.8rem 1.5rem !important;
+        padding: 0.7rem 1.2rem !important;
         font-weight: 600 !important;
-        font-size: 0.95rem !important;
+        font-size: 0.9rem !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3) !important;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
+        box-shadow: 0 2px 8px rgba(0, 166, 81, 0.25) !important;
         white-space: nowrap;
     }}
     
     .stButton > button:hover {{
-        transform: translateY(-3px) !important;
-        box-shadow: 0 8px 25px rgba(0, 166, 81, 0.4) !important;
-        background: linear-gradient(135deg, #008C3F, #24A752) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 15px rgba(0, 166, 81, 0.35) !important;
+        background: #008C3F !important;
     }}
     
     .stButton > button:active {{
-        transform: translateY(-1px) !important;
-    }}
-    
-    /* Special Schedule Button */
-    button[key*="nav_schedule"] {{
-        background: linear-gradient(135deg, var(--secondary-color), #D63945) !important;
-        box-shadow: 0 4px 15px rgba(193, 39, 45, 0.3) !important;
-    }}
-    
-    button[key*="nav_schedule"]:hover {{
-        background: linear-gradient(135deg, #A01F24, #E63946) !important;
-        box-shadow: 0 8px 25px rgba(193, 39, 45, 0.4) !important;
+        transform: translateY(0px) !important;
     }}
     
     /* Form Elements */
@@ -304,53 +291,38 @@ st.markdown(f"""
 if 'page' not in st.session_state:
     st.session_state.page = 'home'
 
-# Create navbar with logo and inline buttons all in one row
+# Create navbar with green background
 st.markdown(f"""
-<div style="background-color: white; padding: 1rem 2rem; border-bottom: 4px solid {BRAND_COLORS['primary']};
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08); border-radius: 0 0 10px 10px;
-            margin: -1rem -1rem 2rem -1rem; display: flex; align-items: center; justify-content: space-between;">
-    <div style="display: flex; align-items: center; gap: 2rem; width: 100%;">
-        <span style="font-size: 1.3rem; font-weight: 700; letter-spacing: 1px; white-space: nowrap;">
-            <span style="color: {BRAND_COLORS['primary']};">CHAMPION</span>
-            <br>
-            <span style="color: {BRAND_COLORS['secondary']};">CLEANERS</span>
+<div style="background-color: {BRAND_COLORS['primary']}; padding: 1.2rem 2rem; border-radius: 0 0 15px 15px;
+            margin: -1rem -1rem 2rem -1rem; box-shadow: 0 4px 20px rgba(0,0,0,0.12); display: flex; 
+            align-items: center; justify-content: space-between; gap: 1rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <span style="font-size: 1.1rem; font-weight: 700; letter-spacing: 1px; color: white; white-space: nowrap;">
+            <span style="color: white;">CHAMPION</span><br><span style="color: white;">CLEANERS</span>
         </span>
-        <div style="display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center;">
-            <!-- Navigation buttons will be placed here by columns -->
-        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
 
-# Create inline navigation buttons
-nav_cols = st.columns([0.6, 0.8, 1, 0.8, 1.1, 0.8, 1, 1])
+# Create inline navigation buttons in green bar
+nav_cols = st.columns([0.8, 0.8, 0.8, 0.9, 0.8, 0.9, 1.5], gap="small")
 
-nav_buttons = [
-    ("🏠 HOME", "home", nav_cols[0]),
-    ("📅 SCHEDULE", "schedule", nav_cols[1]),
-    ("📍 TRACK", "track", nav_cols[2]),
-    ("🧹 SERVICES", "services", nav_cols[3]),
-    ("❓ FAQ", "faq", nav_cols[4]),
-    ("🎁 OFFERS", "offers", nav_cols[5])
+nav_items = [
+    ("🏠 HOME", "home"),
+    ("📅 SCHEDULE", "schedule"),
+    ("📍 TRACK", "track"),
+    ("🧹 SERVICES", "services"),
+    ("❓ FAQ", "faq"),
+    ("🎁 OFFERS", "offers")
 ]
 
-for button_text, page_name, col in nav_buttons:
-    with col:
-        if page_name == "schedule":
-            # Special styling for Schedule button
-            button_clicked = st.button(
-                button_text,
-                key=f"nav_{page_name}",
-                use_container_width=True,
-                help=f"Go to {page_name.capitalize()}"
-            )
-        else:
-            button_clicked = st.button(
-                button_text,
-                key=f"nav_{page_name}",
-                use_container_width=True,
-                help=f"Go to {page_name.capitalize()}"
-            )
+for idx, (button_text, page_name) in enumerate(nav_items):
+    with nav_cols[idx]:
+        button_clicked = st.button(
+            button_text,
+            key=f"nav_{page_name}",
+            use_container_width=True
+        )
         
         if button_clicked:
             st.session_state.page = page_name
