@@ -32,16 +32,19 @@ def show():
             <div style="background: linear-gradient(135deg, white, {BRAND_COLORS['primary_light']});
                         padding: 1.5rem; border-radius: 12px;
                         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        border: 3px solid {BRAND_COLORS['primary']};
                         border-top: 4px solid {BRAND_COLORS['primary']};
+                        border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
-                        min-height: 120px;
+                        min-height: 140px;
                         display: flex;
                         flex-direction: column;
-                        justify-content: center;">
+                        justify-content: space-between;">
                 <div style="text-align: center;">
                     <h4 style="color: {BRAND_COLORS['primary']}; margin: 0 0 0.5rem 0;">{title}</h4>
                     <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0;">{desc}</p>
                 </div>
+                <button style="background: {BRAND_COLORS['primary']}; color: white; border: none; padding: 0.7rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1rem;">Learn More →</button>
             </div>
             """, unsafe_allow_html=True)
             
@@ -91,6 +94,8 @@ def show():
             <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                         padding: 1rem; border-radius: 10px;
                         text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                        border-top: 4px solid {BRAND_COLORS['primary']};
+                        border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">{emoji}</div>
                 <p style="font-weight: 600; color: {BRAND_COLORS['primary']}; margin: 0; font-size: 0.95rem;">{name}</p>
@@ -109,12 +114,14 @@ def show():
     for idx, (emoji, name, desc) in enumerate(services_list2):
         with [col1, col2, col3, col4][idx]:
             st.markdown(f"""
-            <div style="background: linear-gradient(135deg, {BRAND_COLORS['secondary_light']}, white);
+            <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                         padding: 1rem; border-radius: 10px;
-                        text-align: center; border: 2px solid {BRAND_COLORS['secondary']};
+                        text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                        border-top: 4px solid {BRAND_COLORS['primary']};
+                        border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;">
                 <div style="font-size: 2rem; margin-bottom: 0.5rem;">{emoji}</div>
-                <p style="font-weight: 600; color: {BRAND_COLORS['secondary']}; margin: 0; font-size: 0.95rem;">{name}</p>
+                <p style="font-weight: 600; color: {BRAND_COLORS['primary']}; margin: 0; font-size: 0.95rem;">{name}</p>
                 <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.8rem; margin: 0.5rem 0 0 0;">{desc}</p>
             </div>
             """, unsafe_allow_html=True)
@@ -129,7 +136,8 @@ def show():
         <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                     padding: 2rem; border-radius: 12px;
                     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-                    text-align: center; border-top: 4px solid {BRAND_COLORS['primary']};
+                    text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                    border-top: 4px solid {BRAND_COLORS['primary']};
                     transition: all 0.3s;">
             <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.1rem; margin-bottom: 1rem;">📞 Phone</h3>
             <a href="tel:+97142858581" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
@@ -143,13 +151,14 @@ def show():
     
     with col2:
         st.markdown(f"""
-        <div style="background: linear-gradient(135deg, #E3F2FD, white);
+        <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                     padding: 2rem; border-radius: 12px;
                     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-                    text-align: center; border-top: 4px solid #25D366;
+                    text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                    border-top: 4px solid {BRAND_COLORS['primary']};
                     transition: all 0.3s;">
-            <h3 style="color: #25D366; font-size: 1.1rem; margin-bottom: 1rem;">💬 WhatsApp</h3>
-            <a href="https://wa.me/971502130159" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.1rem; margin-bottom: 1rem;">💬 WhatsApp</h3>
+            <a href="https://wa.me/971502130159" target="_blank" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
                 +971 50 213 0159
             </a>
             <p style="margin: 1rem 0 0 0; color: {BRAND_COLORS['text_light']}; font-size: 0.9rem;">
@@ -160,13 +169,14 @@ def show():
     
     with col3:
         st.markdown(f"""
-        <div style="background: linear-gradient(135deg, {BRAND_COLORS['secondary_light']}, white);
+        <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
                     padding: 2rem; border-radius: 12px;
                     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-                    text-align: center; border-top: 4px solid {BRAND_COLORS['secondary']};
+                    text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                    border-top: 4px solid {BRAND_COLORS['primary']};
                     transition: all 0.3s;">
-            <h3 style="color: {BRAND_COLORS['secondary']}; font-size: 1.1rem; margin-bottom: 1rem;">📧 Email & Web</h3>
-            <a href="mailto:mail@champion-cleaners.com" style="color: {BRAND_COLORS['secondary']}; text-decoration: none; font-weight: 600;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.1rem; margin-bottom: 1rem;">📧 Email & Web</h3>
+            <a href="mailto:mail@champion-cleaners.com" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600;">
                 mail@champion-cleaners.com
             </a>
             <p style="margin: 1rem 0 0 0;">
@@ -196,14 +206,17 @@ def show():
     for idx, (emoji, title, desc) in enumerate(services):
         with cols[idx % 3]:
             st.markdown(f"""
-            <div style="background: white; padding: 1.5rem; border-radius: 12px;
+            <div style="background: linear-gradient(135deg, white, {BRAND_COLORS['primary_light']});
+                        padding: 1.5rem; border-radius: 12px;
                         box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        border: 3px solid {BRAND_COLORS['primary']};
                         border-top: 4px solid {BRAND_COLORS['primary']};
+                        border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
                         cursor: pointer;">
                 <div style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center;">{emoji}</div>
                 <h4 style="color: {BRAND_COLORS['primary']}; margin: 0.5rem 0; text-align: center;">{title}</h4>
-                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; text-align: center; line-height: 1.5;">{desc}</p>
+                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0 0 1.5rem 0; text-align: center; line-height: 1.5;">{desc}</p>
             </div>
             """, unsafe_allow_html=True)
             
