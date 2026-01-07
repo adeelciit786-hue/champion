@@ -117,7 +117,7 @@ def show():
                         border-top: 4px solid {BRAND_COLORS['primary']};
                         border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
-                        min-height: 140px;
+                        height: 155px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
@@ -145,7 +145,7 @@ def show():
                         border-top: 4px solid {BRAND_COLORS['primary']};
                         border-bottom: 4px solid {BRAND_COLORS['primary']};
                         transition: all 0.3s;
-                        min-height: 140px;
+                        height: 155px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
