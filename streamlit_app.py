@@ -1,147 +1,190 @@
 """
 Champion Cleaners - Streamlit Application
-A multi-page web application for laundry and dry cleaning services
+A complete replica of the Flask application in Streamlit
 """
 
 import streamlit as st
-from config import BRAND_COLORS, APP_TITLE, APP_SUBTITLE
+from pages import home, faq, schedule, track, services, offers
+from config import BRAND_COLORS
 
-# Set page configuration
 st.set_page_config(
     page_title="Champion Cleaners",
-    page_icon="🧼",
+    page_icon="🧹",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom CSS styling
-def load_custom_css():
+# Custom CSS to match Flask templates exactly
+st.markdown(f"""
+<style>
+    * {{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }}
+    
+    body {{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f5f5f5;
+        color: #333;
+    }}
+    
+    .navbar {{
+        background-color: white;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        border-bottom: 4px solid {BRAND_COLORS['primary']};
+        margin-bottom: 2rem;
+    }}
+    
+    .navbar h1 {{
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }}
+    
+    .navbar-brand-champion {{
+        color: {BRAND_COLORS['primary']};
+    }}
+    
+    .navbar-brand-cleaners {{
+        color: {BRAND_COLORS['secondary']};
+    }}
+    
+    .header {{
+        text-align: center;
+        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, {BRAND_COLORS['secondary']}, #FFFFFF);
+        color: white;
+        padding: 3rem 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }}
+    
+    .header h1 {{
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }}
+    
+    .header p {{
+        font-size: 1.2rem;
+        opacity: 0.95;
+    }}
+    
+    .footer {{
+        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, {BRAND_COLORS['secondary']});
+        color: white;
+        text-align: center;
+        padding: 2.5rem;
+        margin-top: 3rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }}
+    
+    .stApp {{
+        background-color: #f5f5f5;
+    }}
+    
+    .stButton > button {{
+        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, #28C258) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.8rem 2rem !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        transition: transform 0.3s, box-shadow 0.3s !important;
+        box-shadow: 0 4px 15px {BRAND_COLORS['primary']}40 !important;
+    }}
+    
+    .stButton > button:hover {{
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px {BRAND_COLORS['primary']}50 !important;
+    }}
+</style>
+""", unsafe_allow_html=True)
+
+# Session state for page selection
+if 'page' not in st.session_state:
+    st.session_state.page = 'home'
+
+# Create navbar columns
+col1, col2 = st.columns([0.25, 0.75])
+
+with col1:
     st.markdown(f"""
-    <style>
-        :root {{
-            --primary-color: {BRAND_COLORS['primary']};
-            --secondary-color: {BRAND_COLORS['secondary']};
-        }}
-        
-        .main {{
-            background-color: #f5f5f5;
-        }}
-        
-        .stButton > button {{
-            background: linear-gradient(135deg, {BRAND_COLORS['primary']}, #28C258);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 10px 20px;
-            font-weight: 600;
-            width: 100%;
-        }}
-        
-        .stButton > button:hover {{
-            box-shadow: 0 6px 20px {BRAND_COLORS['primary']}80;
-        }}
-        
-        .header-title {{
-            color: {BRAND_COLORS['primary']};
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }}
-        
-        .header-subtitle {{
-            color: {BRAND_COLORS['secondary']};
-            text-align: center;
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-        }}
-        
-        .service-card {{
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border-top: 3px solid {BRAND_COLORS['primary']};
-            text-align: center;
-        }}
-        
-        .alert-success {{
-            background-color: #E8F9F3;
-            color: #00A651;
-            border-left: 4px solid #00A651;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }}
-        
-        .alert-error {{
-            background-color: #FCE8E8;
-            color: #C1272D;
-            border-left: 4px solid #C1272D;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }}
-    </style>
+    <div style="display: flex; align-items: center; padding: 1rem 2rem; gap: 0.5rem;">
+        <span style="font-size: 1.8rem; font-weight: 700; letter-spacing: 1px;">
+            <span style="color: {BRAND_COLORS['primary']};">CHAMPION</span>
+            <span style="color: {BRAND_COLORS['secondary']};">CLEANERS</span>
+        </span>
+    </div>
     """, unsafe_allow_html=True)
 
-load_custom_css()
+with col2:
+    nav_cols = st.columns(6, gap="small")
+    
+    with nav_cols[0]:
+        if st.button("🏠 Home", key="nav_home", use_container_width=True):
+            st.session_state.page = 'home'
+            st.rerun()
+    
+    with nav_cols[1]:
+        if st.button("📅 Schedule", key="nav_schedule", use_container_width=True):
+            st.session_state.page = 'schedule'
+            st.rerun()
+    
+    with nav_cols[2]:
+        if st.button("📍 Track", key="nav_track", use_container_width=True):
+            st.session_state.page = 'track'
+            st.rerun()
+    
+    with nav_cols[3]:
+        if st.button("🧹 Services", key="nav_services", use_container_width=True):
+            st.session_state.page = 'services'
+            st.rerun()
+    
+    with nav_cols[4]:
+        if st.button("❓ FAQ", key="nav_faq", use_container_width=True):
+            st.session_state.page = 'faq'
+            st.rerun()
+    
+    with nav_cols[5]:
+        if st.button("🎁 Offers", key="nav_offers", use_container_width=True):
+            st.session_state.page = 'offers'
+            st.rerun()
 
-# Sidebar navigation
-st.sidebar.markdown(f"""
-    <div style="text-align: center; padding: 20px;">
-        <h1 style="color: {BRAND_COLORS['primary']}; margin: 0;">CHAMPION</h1>
-        <p style="color: {BRAND_COLORS['secondary']}; margin: 0; font-size: 0.9rem;">CLEANERS</p>
-    </div>
-""", unsafe_allow_html=True)
+st.divider()
 
-st.sidebar.markdown("---")
-
-# Navigation pages
-pages = {
-    "🏠 Home": "home",
-    "📋 Schedule Pickup": "schedule",
-    "📍 Track Order": "track",
-    "🧹 Services": "services",
-    "❓ FAQs": "faq",
-    "🎁 Offers": "offers"
-}
-
-selected_page = st.sidebar.radio("Navigation", list(pages.keys()))
-
-st.sidebar.markdown("---")
-st.sidebar.markdown(f"""
-    <div style="text-align: center; font-size: 0.85rem; color: #666;">
-        <p><strong>📞 Call Us</strong><br>+971 4 2858581<br>Toll-Free: 800 4556</p>
-        <p><strong>📧 Email</strong><br>mail@champion-cleaners.com</p>
-    </div>
-""", unsafe_allow_html=True)
-
-# Main content area
-if selected_page == "🏠 Home":
-    from pages import home
+# Page routing
+if st.session_state.page == 'home':
     home.show()
-elif selected_page == "📋 Schedule Pickup":
-    from pages import schedule
-    schedule.show()
-elif selected_page == "📍 Track Order":
-    from pages import track
-    track.show()
-elif selected_page == "🧹 Services":
-    from pages import services
-    services.show()
-elif selected_page == "❓ FAQs":
-    from pages import faq
+elif st.session_state.page == 'faq':
     faq.show()
-elif selected_page == "🎁 Offers":
-    from pages import offers
+elif st.session_state.page == 'schedule':
+    schedule.show()
+elif st.session_state.page == 'track':
+    track.show()
+elif st.session_state.page == 'services':
+    services.show()
+elif st.session_state.page == 'offers':
     offers.show()
+else:
+    home.show()
+
+st.divider()
 
 # Footer
-st.markdown("---")
 st.markdown(f"""
-    <div style="text-align: center; padding: 20px; color: #666; font-size: 0.9rem;">
-        <p>&copy; 2025 Champion Cleaners. Your Trusted Laundry Partner.</p>
-        <p>Following us on social media for updates and offers</p>
-    </div>
+<div class="footer">
+    <p>&copy; 2025 Champion Cleaners. Your Trusted Laundry Partner.</p>
+    <p>📞 +971 4 2858581 | 📧 mail@champion-cleaners.com | 🌐 champion-cleaners.com</p>
+</div>
 """, unsafe_allow_html=True)
