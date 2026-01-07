@@ -179,3 +179,25 @@ ACHIEVEMENTS = [
     "Superbrand 2020",
     "2020 Global Best Practice Award – Sustainability – From CINET"
 ]
+# Helper Functions
+from datetime import datetime, timedelta
+
+def get_future_dates(days=30):
+    """Get list of future dates."""
+    dates = []
+    for i in range(1, days + 1):
+        date = datetime.now() + timedelta(days=i)
+        dates.append(date.strftime("%Y-%m-%d"))
+    return dates
+
+def get_time_slots():
+    """Get available time slots."""
+    slots = [
+        "8 to 10 AM",
+        "10 AM to 12 noon",
+        "2 to 4 PM",
+        "4 to 6 PM",
+        "6 to 8 PM",
+        "8 to 10 PM"
+    ]
+    return slots
