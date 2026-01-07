@@ -1,5 +1,5 @@
 """
-Home page for Champion Cleaners - Matches Flask template exactly
+Home page for Champion Cleaners - Fully Responsive & Optimized
 """
 
 import streamlit as st
