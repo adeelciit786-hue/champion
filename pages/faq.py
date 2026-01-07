@@ -4,7 +4,7 @@ FAQ page for Champion Cleaners - Matches Flask template exactly
 
 import streamlit as st
 from config import BRAND_COLORS, FAQ_DATA, get_future_dates, get_time_slots, SERVICES
-from app import search_faq
+from utils import search_faq
 from database import save_order
 
 def show():
