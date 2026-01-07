@@ -5,14 +5,22 @@ Configuration for Champion Cleaners Web Application
 # Brand Colors - Champion Cleaners Official Colors
 BRAND_COLORS = {
     "primary": "#00A651",      # Green
+    "primary_light": "#E8F9F3",  # Light Green
+    "primary_dark": "#008C3F",   # Dark Green
     "secondary": "#C1272D",    # Red
+    "secondary_light": "#FCE8E8",  # Light Red
+    "secondary_dark": "#A01F24",   # Dark Red
     "accent": "#FFFFFF",       # White
+    "accent_blue": "#007BFF",  # Blue for CTAs
     "light": "#F5F5F5",        # Light Gray
+    "light_dark": "#E8E8E8",   # Medium Light Gray
     "white": "#FFFFFF",        # White
     "text_dark": "#333333",    # Dark Gray
+    "text_light": "#666666",   # Light Gray
     "success": "#00A651",      # Green
-    "warning": "#C1272D",      # Red
-    "error": "#C1272D"         # Red
+    "warning": "#FFC107",      # Yellow/Gold
+    "error": "#C1272D",        # Red
+    "info": "#007BFF"          # Blue
 }
 
 # Services

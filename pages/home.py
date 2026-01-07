@@ -9,114 +9,215 @@ def show():
     # Header
     st.markdown(f"""
     <div class="header">
-        <h1>Welcome to Champion Cleaners</h1>
+        <h1>🏢 Welcome to Champion Cleaners</h1>
         <p>Your Trusted Laundry & Dry Cleaning Service in the UAE</p>
+        <p style="font-size: 0.95rem; margin-top: 1rem; opacity: 0.9;">Established 1997 | Premium Quality | 20+ Years of Excellence</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Quick access cards - clickable with proper sizing
-    st.markdown("### Quick Access")
+    # Quick access cards - clickable with professional styling
+    st.markdown(f"### 🚀 Quick Access")
     col1, col2, col3, col4 = st.columns(4, gap="medium")
     
-    with col1:
-        if st.button("📅 Schedule Pickup\n\nBook a convenient pickup time for your laundry", key="quick_schedule", use_container_width=True, help="Click to schedule pickup"):
-            st.session_state.page = 'schedule'
-            st.rerun()
+    quick_actions = [
+        ("📅 Schedule Pickup", "Book a convenient\npickup time", "quick_schedule"),
+        ("📍 Track Order", "Check your\norder status", "quick_track"),
+        ("❓ FAQs", "Find answers to\ncommon questions", "quick_faq"),
+        ("🎁 Special Offers", "View our latest\ndeals", "quick_offers")
+    ]
     
-    with col2:
-        if st.button("📍 Track Order\n\nCheck the status of your order", key="quick_track", use_container_width=True, help="Click to track order"):
-            st.session_state.page = 'track'
-            st.rerun()
+    for idx, (title, desc, key) in enumerate(quick_actions):
+        with [col1, col2, col3, col4][idx]:
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, white, {BRAND_COLORS['primary_light']});
+                        padding: 1.5rem; border-radius: 12px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        border-top: 4px solid {BRAND_COLORS['primary']};
+                        transition: all 0.3s;
+                        min-height: 120px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;">
+                <div style="text-align: center;">
+                    <h4 style="color: {BRAND_COLORS['primary']}; margin: 0 0 0.5rem 0;">{title}</h4>
+                    <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0;">{desc}</p>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("View →", key=key, use_container_width=True):
+                if key == "quick_schedule":
+                    st.session_state.page = 'schedule'
+                elif key == "quick_track":
+                    st.session_state.page = 'track'
+                elif key == "quick_faq":
+                    st.session_state.page = 'faq'
+                elif key == "quick_offers":
+                    st.session_state.page = 'offers'
+                st.rerun()
     
-    with col3:
-        if st.button("❓ FAQs\n\nFind answers to common questions", key="quick_faq", use_container_width=True, help="Click to view FAQs"):
-            st.session_state.page = 'faq'
-            st.rerun()
-    
-    with col4:
-        if st.button("🎁 Offers\n\nCheck out our latest deals", key="quick_offers", use_container_width=True, help="Click to view offers"):
-            st.session_state.page = 'offers'
-            st.rerun()
-    
-    # About section
+    # About section with professional styling
     st.markdown("---")
-    st.markdown("""
-    ### About Champion Cleaners
+    st.markdown(f"""
+    ### 🏆 About Champion Cleaners
     
-    Champion Cleaners was established in the UAE in 1997. The company's aim has always been to provide 5 star premium dry cleaning and laundry services to high-income affluent expat and local populations of Dubai and the United Arab Emirates. Champion Cleaners UAE receives in excess of 1.3 million retail garments annually and has more than 19K Facebook & 10.4K IG followers.
+    <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                border-left: 5px solid {BRAND_COLORS['primary']};">
+        <p style="color: {BRAND_COLORS['text_dark']}; line-height: 1.8; margin: 0;">
+            <strong>Champion Cleaners</strong> was established in the UAE in <strong>1997</strong>. The company's aim has always been to provide 
+            <strong style="color: {BRAND_COLORS['primary']};">5-star premium dry cleaning and laundry services</strong> to high-income affluent expat and local 
+            populations of Dubai and the United Arab Emirates. 
+        </p>
+        <p style="color: {BRAND_COLORS['text_dark']}; margin-top: 1rem; margin-bottom: 0;">
+            Champion Cleaners UAE receives in excess of <strong>1.3 million retail garments annually</strong> and has more than <strong>19K Facebook</strong> & <strong>10.4K Instagram</strong> followers.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
     
-    #### Our Value Added Services:
-    - 👜 Bag & Shoes Spa
-    - 👗 Wedding Gown Cleaning & Preservation
-    - 👶 Strollers and Baby Car seat Cleaning and Sanitization
-    - 🧸 Soft Toy Cleaning & Sanitization
-    - 🛏️ Comprehensive Mattress Cleaning and Sanitization Solution
-    - 👔 Super Crease
-    - ✂️ Alterations Clinique
+    # Services highlights
+    st.markdown(f"### ✨ Our Value-Added Services")
     
-    Champion Cleaners is proud to have out-performed its commitments to operating a green business by introduction of a slate of international initiatives.
-    """)
+    col1, col2, col3, col4 = st.columns(4, gap="small")
+    services_list = [
+        ("👜", "Bag & Shoes Spa", "Leather restoration"),
+        ("👗", "Wedding Gowns", "Premium preservation"),
+        ("👶", "Baby Care", "Stroller & Car seat cleaning"),
+        ("🧸", "Soft Toys", "Safe sanitization")
+    ]
     
-    # Contact info
+    for idx, (emoji, name, desc) in enumerate(services_list):
+        with [col1, col2, col3, col4][idx]:
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
+                        padding: 1rem; border-radius: 10px;
+                        text-align: center; border: 2px solid {BRAND_COLORS['primary']};
+                        transition: all 0.3s;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">{emoji}</div>
+                <p style="font-weight: 600; color: {BRAND_COLORS['primary']}; margin: 0; font-size: 0.95rem;">{name}</p>
+                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.8rem; margin: 0.5rem 0 0 0;">{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    col1, col2, col3, col4 = st.columns(4, gap="small")
+    services_list2 = [
+        ("🛏️", "Mattress Cleaning", "Dust mite elimination"),
+        ("👔", "Super Crease", "Long-lasting creases"),
+        ("✂️", "Alterations", "Professional tailoring"),
+        ("🌱", "Green Tech", "Eco-friendly solutions")
+    ]
+    
+    for idx, (emoji, name, desc) in enumerate(services_list2):
+        with [col1, col2, col3, col4][idx]:
+            st.markdown(f"""
+            <div style="background: linear-gradient(135deg, {BRAND_COLORS['secondary_light']}, white);
+                        padding: 1rem; border-radius: 10px;
+                        text-align: center; border: 2px solid {BRAND_COLORS['secondary']};
+                        transition: all 0.3s;">
+                <div style="font-size: 2rem; margin-bottom: 0.5rem;">{emoji}</div>
+                <p style="font-weight: 600; color: {BRAND_COLORS['secondary']}; margin: 0; font-size: 0.95rem;">{name}</p>
+                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.8rem; margin: 0.5rem 0 0 0;">{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+    
+    # Contact information with enhanced styling
     st.markdown("---")
-    st.markdown("### Contact Information")
+    st.markdown("### 📞 Contact Information")
     col1, col2, col3 = st.columns(3, gap="medium")
     
     with col1:
         st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">📞 Phone</h3>
-            <a href="tel:+97142858581" style="color: #333; text-decoration: none; font-size: 1rem; font-weight: 600;">
-                <p style="margin: 0.5rem 0;">+971 4 2858581</p>
+        <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary_light']}, white);
+                    padding: 2rem; border-radius: 12px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    text-align: center; border-top: 4px solid {BRAND_COLORS['primary']};
+                    transition: all 0.3s;">
+            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.1rem; margin-bottom: 1rem;">📞 Phone</h3>
+            <a href="tel:+97142858581" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+                +971 4 2858581
             </a>
-            <a href="tel:8004556" style="color: #333; text-decoration: none; font-size: 0.9rem;">
-                <p style="margin: 0.5rem 0;"><strong>Toll-Free:</strong> 800 4556</p>
-            </a>
+            <p style="margin: 1rem 0 0 0; color: {BRAND_COLORS['text_light']}; font-size: 0.9rem;">
+                <a href="tel:8004556" style="color: {BRAND_COLORS['secondary']}; text-decoration: none; font-weight: 600;">Toll-Free: 800 4556</a>
+            </p>
         </div>
         """, unsafe_allow_html=True)
     
     with col2:
         st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">💬 WhatsApp</h3>
-            <a href="https://wa.me/971502130159" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 600;">
-                <p style="margin: 0.5rem 0; font-size: 1rem;">+971 50 213 0159</p>
+        <div style="background: linear-gradient(135deg, #E3F2FD, white);
+                    padding: 2rem; border-radius: 12px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    text-align: center; border-top: 4px solid #25D366;
+                    transition: all 0.3s;">
+            <h3 style="color: #25D366; font-size: 1.1rem; margin-bottom: 1rem;">💬 WhatsApp</h3>
+            <a href="https://wa.me/971502130159" target="_blank" style="color: #25D366; text-decoration: none; font-weight: 700; font-size: 1.05rem;">
+                +971 50 213 0159
             </a>
-            <p style="margin: 0.5rem 0; font-size: 0.85rem; color: #666;">Chat with us instantly</p>
+            <p style="margin: 1rem 0 0 0; color: {BRAND_COLORS['text_light']}; font-size: 0.9rem;">
+                Chat with us instantly
+            </p>
         </div>
         """, unsafe_allow_html=True)
     
     with col3:
         st.markdown(f"""
-        <div style="background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); text-align: center; cursor: pointer;">
-            <h3 style="color: {BRAND_COLORS['primary']}; font-size: 1.2rem; margin-bottom: 1rem;">📧 Email</h3>
-            <a href="mailto:mail@champion-cleaners.com" style="color: #333; text-decoration: none;">
-                <p style="margin: 0.5rem 0; font-size: 0.95rem;">mail@champion-cleaners.com</p>
+        <div style="background: linear-gradient(135deg, {BRAND_COLORS['secondary_light']}, white);
+                    padding: 2rem; border-radius: 12px;
+                    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                    text-align: center; border-top: 4px solid {BRAND_COLORS['secondary']};
+                    transition: all 0.3s;">
+            <h3 style="color: {BRAND_COLORS['secondary']}; font-size: 1.1rem; margin-bottom: 1rem;">📧 Email & Web</h3>
+            <a href="mailto:mail@champion-cleaners.com" style="color: {BRAND_COLORS['secondary']}; text-decoration: none; font-weight: 600;">
+                mail@champion-cleaners.com
             </a>
-            <a href="https://champion-cleaners.com" target="_blank" style="color: #333; text-decoration: none; font-size: 0.9rem;">
-                <p style="margin: 0.5rem 0;">champion-cleaners.com</p>
-            </a>
+            <p style="margin: 1rem 0 0 0;">
+                <a href="https://champion-cleaners.com" target="_blank" style="color: {BRAND_COLORS['primary']}; text-decoration: none; font-weight: 600; font-size: 0.95rem;">
+                    🌐 Visit Website
+                </a>
+            </p>
         </div>
         """, unsafe_allow_html=True)
     
-    # Services Section
+    # Premium Services Grid
     st.markdown("---")
-    st.markdown("### Our Premium Services")
+    st.markdown(f"### 🌟 Premium Services")
     
     col1, col2, col3 = st.columns(3, gap="medium")
     
     services = [
-        ("📦", "Free Pick-up & Delivery", "Door-to-door convenience"),
-        ("🛋️", "Carpet & Upholstery", "Advanced technology cleaning"),
-        ("👜", "Bag & Shoe Spa", "Luxury leather restoration"),
-        ("👗", "Wedding Gown", "Premium preservation"),
-        ("👔", "Super Crease", "Long-lasting freshness"),
-        ("🧸", "Soft Toy Cleaning", "Safe & sanitized")
+        ("📦", "Free Pick-up & Delivery", "Door-to-door convenience in Dubai, Abu Dhabi, Sharjah & Ajman"),
+        ("🛋️", "Carpet & Upholstery Cleaning", "Advanced technology cleaning for all types of fabrics"),
+        ("👜", "Bag & Shoe Spa", "Luxury leather restoration and care"),
+        ("👗", "Wedding Gown Preservation", "Museum-quality preservation methods"),
+        ("👔", "Super Crease", "Long-lasting freshness and perfect creases"),
+        ("🧸", "Soft Toy Cleaning", "Safe and sanitized play items")
     ]
     
     cols = [col1, col2, col3]
     for idx, (emoji, title, desc) in enumerate(services):
         with cols[idx % 3]:
-            if st.button(f"{emoji} {title}\n\n{desc}", key=f"service_{idx}", use_container_width=True, help="Click to view details"):
+            st.markdown(f"""
+            <div style="background: white; padding: 1.5rem; border-radius: 12px;
+                        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                        border-top: 4px solid {BRAND_COLORS['primary']};
+                        transition: all 0.3s;
+                        cursor: pointer;">
+                <div style="font-size: 2.5rem; margin-bottom: 0.5rem; text-align: center;">{emoji}</div>
+                <h4 style="color: {BRAND_COLORS['primary']}; margin: 0.5rem 0; text-align: center;">{title}</h4>
+                <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; text-align: center; line-height: 1.5;">{desc}</p>
+            </div>
+            """, unsafe_allow_html=True)
+            
+            if st.button("Learn More →", key=f"service_{idx}", use_container_width=True):
                 st.session_state.page = 'services'
                 st.rerun()
+    
+    # Call to action banner
+    st.markdown("---")
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, {BRAND_COLORS['primary']}, {BRAND_COLORS['secondary']});
+                color: white; padding: 3rem 2rem; border-radius: 15px;
+                text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.15);">
+        <h2 style="color: white; border: none; margin-top: 0;">🎯 Ready to Experience Premium Cleaning?</h2>
+        <p style="font-size: 1.1rem; margin: 1rem 0; opacity: 0.95;">Schedule your pickup today and enjoy our premium services at your doorstep!</p>
+    </div>
+    """, unsafe_allow_html=True)

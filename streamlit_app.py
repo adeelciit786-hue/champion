@@ -23,90 +23,267 @@ st.markdown(f"""
         box-sizing: border-box;
     }}
     
-    body {{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f5f5f5;
-        color: #333;
+    :root {{
+        --primary-color: {BRAND_COLORS['primary']};
+        --secondary-color: {BRAND_COLORS['secondary']};
+        --accent-blue: {BRAND_COLORS['accent_blue']};
+        --light-bg: {BRAND_COLORS['light']};
+        --text-dark: {BRAND_COLORS['text_dark']};
+        --text-light: {BRAND_COLORS['text_light']};
+        --success-color: {BRAND_COLORS['success']};
+        --warning-color: {BRAND_COLORS['warning']};
+        --error-color: {BRAND_COLORS['error']};
     }}
     
+    html, body {{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+        color: var(--text-dark);
+        line-height: 1.6;
+    }}
+    
+    .stApp {{
+        background: linear-gradient(135deg, #f5f5f5 0%, #fafafa 100%);
+    }}
+    
+    /* Typography */
+    h1, h2, h3 {{
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
+        letter-spacing: 0.5px;
+    }}
+    
+    h1 {{
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }}
+    
+    h2 {{
+        font-size: 1.8rem;
+        border-bottom: 3px solid var(--primary-color);
+        padding-bottom: 0.5rem;
+    }}
+    
+    h3 {{
+        font-size: 1.4rem;
+        color: var(--primary-color);
+    }}
+    
+    h4 {{
+        font-size: 1.1rem;
+        color: var(--secondary-color);
+        font-weight: 600;
+    }}
+    
+    /* Navbar */
     .navbar {{
-        background-color: white;
-        padding: 1rem 2rem;
+        background: white;
+        padding: 1.2rem 2rem;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-bottom: 4px solid {BRAND_COLORS['primary']};
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        border-bottom: 4px solid var(--primary-color);
         margin-bottom: 2rem;
+        border-radius: 0 0 10px 10px;
     }}
     
-    .navbar h1 {{
-        font-size: 1.8rem;
+    .navbar-brand {{
+        font-size: 1.3rem;
         font-weight: 700;
         letter-spacing: 1px;
-        margin: 0;
         display: flex;
-        align-items: center;
         gap: 0.5rem;
+        align-items: center;
     }}
     
     .navbar-brand-champion {{
-        color: {BRAND_COLORS['primary']};
+        color: var(--primary-color);
     }}
     
     .navbar-brand-cleaners {{
-        color: {BRAND_COLORS['secondary']};
+        color: var(--secondary-color);
     }}
     
+    /* Buttons */
+    .stButton > button {{
+        background: linear-gradient(135deg, var(--primary-color), #28C258) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        padding: 0.8rem 1.5rem !important;
+        font-weight: 600 !important;
+        font-size: 0.95rem !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3) !important;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }}
+    
+    .stButton > button:hover {{
+        transform: translateY(-3px) !important;
+        box-shadow: 0 8px 25px rgba(0, 166, 81, 0.4) !important;
+        background: linear-gradient(135deg, #008C3F, #24A752) !important;
+    }}
+    
+    .stButton > button:active {{
+        transform: translateY(-1px) !important;
+    }}
+    
+    /* Form Elements */
+    .stTextInput > div > div > input,
+    .stTextArea > div > div > textarea,
+    .stSelectbox > div > div > select,
+    .stMultiSelect > div > div > div {{
+        border: 2px solid {BRAND_COLORS['light_dark']} !important;
+        border-radius: 8px !important;
+        padding: 0.8rem !important;
+        font-size: 0.95rem !important;
+        transition: all 0.3s ease !important;
+        background-color: white !important;
+    }}
+    
+    .stTextInput > div > div > input:focus,
+    .stTextArea > div > div > textarea:focus,
+    .stSelectbox > div > div > select:focus,
+    .stMultiSelect > div > div > div:focus {{
+        border-color: var(--primary-color) !important;
+        box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1) !important;
+        outline: none !important;
+    }}
+    
+    /* Cards and Containers */
+    .stMetric {{
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        border-left: 4px solid var(--primary-color);
+        transition: all 0.3s ease;
+    }}
+    
+    .stMetric:hover {{
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }}
+    
+    /* Dividers */
+    hr, .stDivider {{
+        border: none !important;
+        border-top: 2px solid var(--light-bg) !important;
+        margin: 2rem 0 !important;
+    }}
+    
+    /* Expander */
+    .streamlit-expanderHeader {{
+        background-color: white;
+        border: 2px solid var(--light-bg);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }}
+    
+    .streamlit-expanderHeader:hover {{
+        border-color: var(--primary-color);
+        box-shadow: 0 4px 12px rgba(0, 166, 81, 0.15);
+    }}
+    
+    /* Alert/Messages */
+    .stSuccess {{
+        background-color: {BRAND_COLORS['primary_light']} !important;
+        border-left: 4px solid var(--success-color) !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+    }}
+    
+    .stWarning {{
+        background-color: #FFF3E0 !important;
+        border-left: 4px solid var(--warning-color) !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+    }}
+    
+    .stError {{
+        background-color: {BRAND_COLORS['secondary_light']} !important;
+        border-left: 4px solid var(--error-color) !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+    }}
+    
+    .stInfo {{
+        background-color: #E3F2FD !important;
+        border-left: 4px solid var(--accent-blue) !important;
+        border-radius: 8px !important;
+        padding: 1rem !important;
+    }}
+    
+    /* Header Sections */
     .header {{
         text-align: center;
-        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, {BRAND_COLORS['secondary']}, #FFFFFF);
+        background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
         color: white;
-        padding: 3rem 2rem;
+        padding: 4rem 2rem;
         border-radius: 15px;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        margin-bottom: 2.5rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        position: relative;
+        overflow: hidden;
+    }}
+    
+    .header::before {{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
     }}
     
     .header h1 {{
-        font-size: 2.5rem;
+        font-size: 2.8rem;
         margin-bottom: 0.5rem;
+        position: relative;
+        z-index: 1;
+        color: white;
+        -webkit-text-fill-color: white;
     }}
     
     .header p {{
         font-size: 1.2rem;
         opacity: 0.95;
+        position: relative;
+        z-index: 1;
     }}
     
+    /* Footer */
     .footer {{
-        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, {BRAND_COLORS['secondary']});
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
         color: white;
         text-align: center;
-        padding: 2.5rem;
+        padding: 3rem 2rem;
         margin-top: 3rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        border-radius: 15px 15px 0 0;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
     }}
     
-    .stApp {{
-        background-color: #f5f5f5;
+    .footer p {{
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
     }}
     
-    .stButton > button {{
-        background: linear-gradient(135deg, {BRAND_COLORS['primary']}, #28C258) !important;
-        color: white !important;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.8rem 2rem !important;
-        font-weight: 600 !important;
-        cursor: pointer !important;
-        transition: transform 0.3s, box-shadow 0.3s !important;
-        box-shadow: 0 4px 15px {BRAND_COLORS['primary']}40 !important;
-    }}
-    
-    .stButton > button:hover {{
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px {BRAND_COLORS['primary']}50 !important;
+    /* Responsive */
+    @media (max-width: 768px) {{
+        h1 {{ font-size: 2rem; }}
+        h2 {{ font-size: 1.5rem; }}
+        h3 {{ font-size: 1.2rem; }}
+        .header {{ padding: 2rem 1rem; }}
     }}
 </style>
 """, unsafe_allow_html=True)
