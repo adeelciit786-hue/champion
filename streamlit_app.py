@@ -330,7 +330,8 @@ for idx, (button_text, page_name) in enumerate(nav_items):
         button_clicked = st.button(
             button_text,
             key=f"nav_{page_name}",
-            use_container_width=True
+            use_container_width=True,
+            help=f"Go to {page_name} page"
         )
         
         if button_clicked:
