@@ -28,36 +28,42 @@ def show():
     
     for idx, (title, desc, key) in enumerate(quick_actions):
         with [col1, col2, col3, col4][idx]:
-            st.markdown(f"""
-            <div style="background: linear-gradient(180deg, {BRAND_COLORS['primary_light']} 0%, white 100%);
-                        padding: 1.5rem; border-radius: 12px;
-                        box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-                        border: 3px solid {BRAND_COLORS['primary']};
-                        border-top: 4px solid {BRAND_COLORS['primary']};
-                        border-bottom: 4px solid {BRAND_COLORS['primary']};
-                        transition: all 0.3s;
-                        min-height: 155px;
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-between;
-                        align-items: stretch;">
-                <div style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center;">
-                    <h4 style="color: {BRAND_COLORS['primary']}; margin: 0 0 0.5rem 0; font-size: 1.1rem;">{title}</h4>
-                    <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; line-height: 1.4;">{desc}</p>
-                </div>
-                <button style="background: {BRAND_COLORS['primary']}; color: white; border: none; padding: 0.8rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer; width: 100%; margin-top: 1rem; font-size: 0.95rem; transition: all 0.3s;">Learn More →</button>
-            </div>
-            """, unsafe_allow_html=True)
+            # Determine where to navigate
+            nav_page = ""
+            if key == "quick_schedule":
+                nav_page = "schedule"
+            elif key == "quick_track":
+                nav_page = "track"
+            elif key == "quick_faq":
+                nav_page = "faq"
+            elif key == "quick_offers":
+                nav_page = "offers"
             
-            if st.button("View →", key=key, use_container_width=True):
-                if key == "quick_schedule":
-                    st.session_state.page = 'schedule'
-                elif key == "quick_track":
-                    st.session_state.page = 'track'
-                elif key == "quick_faq":
-                    st.session_state.page = 'faq'
-                elif key == "quick_offers":
-                    st.session_state.page = 'offers'
+            # Create clickable card using columns for button
+            card_col, _ = st.columns([1, 0.01])
+            with card_col:
+                st.markdown(f"""
+                <div style="background: linear-gradient(180deg, {BRAND_COLORS['primary_light']} 0%, white 100%);
+                            padding: 1.5rem; border-radius: 12px;
+                            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+                            border: 3px solid {BRAND_COLORS['primary']};
+                            border-top: 4px solid {BRAND_COLORS['primary']};
+                            border-bottom: 4px solid {BRAND_COLORS['primary']};
+                            transition: all 0.3s;
+                            min-height: 155px;
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: space-between;
+                            align-items: stretch;">
+                    <div style="text-align: center; flex: 1; display: flex; flex-direction: column; justify-content: center;">
+                        <h4 style="color: {BRAND_COLORS['primary']}; margin: 0 0 0.5rem 0; font-size: 1.1rem;">{title}</h4>
+                        <p style="color: {BRAND_COLORS['text_light']}; font-size: 0.85rem; margin: 0; line-height: 1.4;">{desc}</p>
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            
+            if st.button("Learn More →", key=key, use_container_width=True):
+                st.session_state.page = nav_page
                 st.rerun()
     
     # About section with professional styling
