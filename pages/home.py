@@ -49,14 +49,14 @@ def show():
         st.markdown(f"""
         <div style="background: white; padding: 2rem; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-top: 4px solid {BRAND_COLORS['primary']}; border-left: 4px solid {BRAND_COLORS['secondary']};">
             <h2 style="font-size: 2rem; margin: 0;">🎉</h2>
-            <h3 style="color: {BRAND_COLORS['primary']};">Offers & Promotions</h3>
+            <h3 style="color: {BRAND_COLORS['primary']};">Offers</h3>
             <p style="color: #666;">Check out our latest deals</p>
         </div>
         """, unsafe_allow_html=True)
     
     # About section
     st.markdown("---")
-    st.markdown(f"""
+    st.markdown("""
     ### About Champion Cleaners
     
     Champion Cleaners was established in the UAE in 1997. The company's aim has always been to provide 5 star premium dry cleaning and laundry services to high-income affluent expat and local populations of Dubai and the United Arab Emirates. Champion Cleaners UAE receives in excess of 1.3 million retail garments annually and has more than 19K Facebook & 10.4K IG followers.
@@ -127,78 +127,3 @@ def show():
                 <p style="color: #666; font-size: 0.9rem;">{desc}</p>
             </div>
             """, unsafe_allow_html=True)
-        
-        ✅ **1.3M+ Garments Annually** - Trusted by thousands
-        
-        ✅ **Eco-Friendly Solutions** - Green cleaning technology
-        """)
-    
-    with col2:
-        st.markdown(f"""
-        ✅ **Premium Quality** - 5-star service standards
-        
-        ✅ **Multiple Coverage Areas** - Dubai, Abu Dhabi, Sharjah, Ajman
-        
-        ✅ **Competitive Pricing** - Best value in the market
-        
-        ✅ **Professional Team** - Trained & experienced experts
-        """)
-    
-    # About Company
-    st.markdown("---")
-    st.markdown(f"### 🏢 About Champion Cleaners")
-    st.info(COMPANY_DESCRIPTION)
-    
-    # Quick Stats
-    st.markdown("---")
-    st.markdown(f"### 📊 By The Numbers")
-    
-    col1, col2, col3, col4 = st.columns(4)
-    with col1:
-        st.metric("Years in Business", "25+")
-    with col2:
-        st.metric("Garments/Year", "1.3M+")
-    with col3:
-        st.metric("Locations", "50+")
-    with col4:
-        st.metric("Happy Customers", "19K+")
-    
-    # Call to Action
-    st.markdown("---")
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        if st.button("🎯 Schedule Your First Pickup Now", use_container_width=True):
-            st.switch_page("pages/schedule.py")
-    
-    # Contact Info
-    st.markdown("---")
-    st.markdown(f"### 📞 Contact Us")
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown(f"""
-        **Phone**
-        
-        📱 +971 4 2858581
-        
-        📞 Toll-Free: 800 4556
-        """)
-    
-    with col2:
-        st.markdown(f"""
-        **Email**
-        
-        ✉️ mail@champion-cleaners.com
-        
-        🌐 www.champion-cleaners.com
-        """)
-    
-    with col3:
-        st.markdown(f"""
-        **Coverage Areas**
-        
-        📍 Dubai
-        📍 Abu Dhabi
-        📍 Sharjah
-        📍 Ajman
-        """)

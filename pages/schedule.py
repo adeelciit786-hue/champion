@@ -7,13 +7,15 @@ from config import BRAND_COLORS, SERVICES, get_future_dates, get_time_slots
 from database import save_order
 
 def show():
-    st.markdown(f"### 📅 Schedule Pickup & Delivery")
-    st.markdown("Book your pickup at a time convenient for you. We offer FREE pickup and delivery service!")
+    st.markdown(f"""
+    <h1 style="color: {BRAND_COLORS['primary']}; text-align: center; margin-bottom: 2rem;">Schedule Pickup & Delivery</h1>
+    """, unsafe_allow_html=True)
     
-    st.markdown("---")
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #FFFFFF, #F0F9FF); padding: 2rem; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 6px solid {BRAND_COLORS['primary']}; border-top: 2px solid {BRAND_COLORS['secondary']};">
+    """, unsafe_allow_html=True)
     
     with st.form("schedule_pickup_form"):
-        st.markdown("#### Your Details")
         col1, col2 = st.columns(2)
         with col1:
             full_name = st.text_input("Full Name *")
