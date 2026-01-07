@@ -103,7 +103,7 @@ def show():
             # No matching FAQ found
             st.markdown(f"""
             <div style="background: #FCE8E8; padding: 1rem; border-radius: 8px; border-left: 4px solid #C1272D;">
-                <p style="color: #C1272D; font-weight: 600;">❌ No matching answer found</p>
+                <p style="color: #C1272D; font-weight: 600;">❌ No matching answer was found. Please try refining your search or fill in your contact details below, and our team will get in touch with you.</p>
             </div>
             """, unsafe_allow_html=True)
             
